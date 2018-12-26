@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 # Install PHP extensions
 RUN apt-get update && apt-get install -y \
@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install \
       intl \
       mbstring \
-      mcrypt \
       pcntl \
       pdo_mysql \
       pdo_pgsql \
