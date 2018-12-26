@@ -1,0 +1,56 @@
+version: '2'
+
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: mysql-on-hand
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports: 
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=testes
+      - MYSQL_DATABASE=hand_admin
+      - MYSQL_USER=sandbox
+      - MYSQL_PASSWORD=sandbox
+      
+  php:
+    build:
+      context: ./docker/php7-fpm
+    image: laravel:php-fpm
+    container_name: php-on-hand
+    depends_on:
+      - mysql
+    command: bash -c "php-fpm  && php-fpm -v"
+    environment:
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_DATABASE: hand_admin
+      DB_PASSWORD: testes
+      DB_HOST: mysql
+      MYSQL_HOST: mysql
+      REDIS_HOST: redis
+      DEBUG: 1
+      
+    links:
+      - mysql
+    volumes:
+      - ./app/:/var/www/html:rw
+
+  web:
+    image: nginx:alpine
+    container_name: nginx-on-hand
+    depends_on:
+      - php
+    volumes_from:
+      - php
+    volumes:
+      - ./docker/nginx/default:/etc/nginx/conf.d/default.conf
+    ports:
+      - 4001:4001
+
+volumes:
+  redis-data:
+    driver: "local"
+  mysql-data:
+    driver: "local"
