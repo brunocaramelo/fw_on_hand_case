@@ -6,7 +6,7 @@ if (!session_id()) {
     session_start();
 }
 
-require __DIR__ . '/../vendor/Psr4AutoloaderClass.php';
+require __DIR__.'/../vendor/Psr4AutoloaderClass.php';
 
 $psr4 = new Psr4AutoloaderClass();
 
