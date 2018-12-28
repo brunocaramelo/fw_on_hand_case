@@ -31,7 +31,7 @@ class ApplicationApi
                   ->register('auth', $authInjetc);
                   
         
-        $routes = require_once __DIR__ . "/../app/api.php";
+        $routes = require_once __DIR__ . "/../config/api.php";
         new \Core\RouteApi($routes, $conteiner);
     }
 

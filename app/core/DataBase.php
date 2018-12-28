@@ -11,7 +11,7 @@ class DataBase
     
     public function __construct()
     {
-        $conf = require __DIR__ . "/../app/database.php";
+        $conf = require __DIR__."/../config/database.php";
 
         $this->config['host'] = $conf['mysql']['host'];
         $this->config['db'] = $conf['mysql']['database'];
