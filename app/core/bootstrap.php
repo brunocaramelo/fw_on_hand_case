@@ -15,5 +15,8 @@ $psr4->addNameSpace('Core', __DIR__.'/../core');
 $psr4->register();
 
 
+$applicationApi = new \Core\ApplicationApi([]);
+$applicationApi->run();
+
 $application = new \Core\ApplicationWeb([]);
 $application->run();

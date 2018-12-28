@@ -2,7 +2,7 @@
 
 namespace Core;
 
-class Route
+class RouteApi
 {
     private $routes;
     private $conteiner;
@@ -39,6 +39,10 @@ class Route
     {
         $url = $this->getUrl();
         $urlArray = explode('/', $url);
+        
+        if (in_array('api',$urlArray)===false) {
+            return false;
+        }
 
         foreach ($this->routes as $route) {
             $routeArray = explode('/', $route[0]);
@@ -57,29 +61,23 @@ class Route
                 $action = $route[2];
                 $auth = $this->conteiner->get('auth');
                 if (isset($route[3]) && $route[3] == 'auth' && $auth->check() === false) {
-                    $action = 'forbiden';
+                    die($this->conteiner->get('response')->json(['error'=>'Token Invalido'], 401));
                 }
                 if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true ) {
-                    $action = 'unautorized';
+                    die($this->conteiner->get('response')->json(['error'=>'Voce nao tem permissao para este recurso'], 403));
                 }
                 break;
             }
         }
         
         if (isset($found)) {
-            $requestContext = $this->conteiner->get('request');
-            $requestContext->setRouteParams($paramAlias);
-            
             $controller = new $controller($this->conteiner);
-            $controller->$action($requestContext);
+            $controller->$action($this->conteiner->get('request'));
         }
 
         if (!isset($found)) {
-            http_response_code(404);
-            $this->conteiner->get('template')
-                    ->setup([], '404', 'Recurso nao encontrado')
-                    ->render();
+            $this->conteiner->get('response')->json(['error'=>'Recurso nao encontrado'], 404);
         }
-    
+        
     }
 }

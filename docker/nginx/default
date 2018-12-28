@@ -16,8 +16,8 @@ server {
         add_header Access-Control-Allow-Origin *;
     }
     
-    location ~ \.js {
-        add_header  Content-Type    application/x-javascript;
+    location ~* \.(eot|ttf|woff|css|js)$ {
+        add_header Access-Control-Allow-Origin *;
     }
 
     location ~ \.php$ {

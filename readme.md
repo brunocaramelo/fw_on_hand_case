@@ -1,10 +1,14 @@
 
 EXECUTAR ANTES DA APLICAÇÃO CLIENTE
 
-1- Criação do Database (Mysql) executar DUMP de storage/database/create-database.sql
+1- Ir a raiz do projeto e subir a aplicação com o uso do comando:
 
-2 - Alterar parametros no .env para o Banco DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=stock_api DB_USERNAME=root DB_PASSWORD=testes
+    sudo docker-compose up -d
 
+
+2 - Subir a base de dados com o comando:
+
+    sudo docker exec -t php-on-hand php /var/www/html/deploy/migrate.php
 
 Rotas: 
     GET - /login (Login)

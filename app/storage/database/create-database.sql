@@ -9,13 +9,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 -- ---------------------------------------------------------
-
-
--- CREATE DATABASE "hand_admin" ----------------------------
-CREATE DATABASE IF NOT EXISTS `hand_admin` CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `hand_admin`;
--- ---------------------------------------------------------
-
+CREATE DATABASE hand_admin;
+USE hand_admin;
 
 -- CREATE TABLE "permission_role" --------------------------
 -- CREATE TABLE "permission_role" ------------------------------
@@ -81,7 +76,7 @@ CREATE TABLE `users` (
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB
-AUTO_INCREMENT = 5;
+AUTO_INCREMENT = 9;
 -- -------------------------------------------------------------
 -- ---------------------------------------------------------
 
@@ -140,7 +135,10 @@ INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '6', 'Exibir resultados d
 -- Dump data of "users" ------------------------------------
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '1', 'admin', 'admin@admin.com', '$2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi', '2018-12-23 14:00:00', '2018-12-23 14:00:00', '$2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi', '1' );
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '4', 'testa mudei', 'testa@testa.com', '$2y$10$6nPGjWp.dgmlEc3tjHNGhutTkRGZ6A5CkstKMhuBszPcWSX7qWMMq', '2018-12-24 03:00:15', '2018-12-25 23:04:19', '$2y$10$tpxeN7V0k3MN.loD5h7q/up4bjXNkZzYFIjD4.8Ok1WYEZXtaQ52i', '2' );
-INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '5', 'criador mensagems', 'criador_mensagem@criador.com', '$2y$10$yXvnWYSnDiJmz2jF5daSqeJ/O4goNQWIVZ01jIeUx1McnNr2JpeJm', '2018-12-25 23:27:50', '2018-12-26 01:25:16', '$2y$10$7HGa7x12IXVHqkpzWogZK.8j2sZiRP2k9SzwavM00lqsX05xFVEc2', '4' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '5', 'criador mensagem mudei', 'criador_mensagem@criador.com', '$2y$10$kN46aOqj.yMyg48ZB/.hsOcYz1fTXwwpUQNbysywihZJgFsbrYske', '2018-12-25 23:27:50', '2018-12-26 02:35:08', '$2y$10$7HGa7x12IXVHqkpzWogZK.8j2sZiRP2k9SzwavM00lqsX05xFVEc2', '4' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '6', 'enviador master mudei', 'enviador@master.com', '$2y$10$DmV6EUgPbm1v0o7iUJJLiu4fEbuRoGzgXaQvl5QfaOIfxO5vqGIXS', '2018-12-26 02:35:37', '2018-12-26 02:36:28', '$2y$10$fXQfLdVHwss8ETY3sihg/uh2GKgzyJ2zWjXBMCiRaOk0c1vsfcMXq', '3' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '7', 'teste teste', 'teste@teste.com', '$2y$10$tPjZjHrDUrU5Vw1jYTBDXOzoldh8p0jdlwlkTcPvunz.318bdW7oC', '2018-12-26 02:38:17', '2018-12-26 02:44:46', '$2y$10$rykgmax3a4L5uxZc7//V3uElNLBmU8uyqi9V2ergMgaZ7KyQv3tB.', '2' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '8', 'ewwerw', 'eeeee@eee.com', '$2y$10$1fsAwfX2syo74L0JiFYWTeJtgwVvVb4LeZOdw9A9aOObtPR4XSwUi', '2018-12-26 02:45:41', '2018-12-26 02:45:41', '$2y$10$vYeTM51M.juGd92av9CK.uKtq71kn2k6WFf3hMrzLYk6BCTcMi726', '4' );
 -- ---------------------------------------------------------
 
 

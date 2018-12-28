@@ -26,6 +26,14 @@ class UserRepository
         $query->execute();
         return $query->fetch();
     }
+
+    public function findByToken($token)
+    {
+        $query= $this->conn->prepare("SELECT * FROM users WHERE api_token=:token");
+        $query->bindParam(':token', $token);
+        $query->execute();
+        return $query->fetch();
+    }
     
     public function create($params)
     {

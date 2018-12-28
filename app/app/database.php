@@ -1,14 +1,6 @@
 <?php
 
 return [
-
-    /* Options (mysql, sqlite) */
-    'driver' => 'sqlite',
-
-    'sqlite' => [
-        'database' => 'database.db'
-    ],
-
     'mysql' => [
         'host' => getenv('DB_HOST'),
         'database' => getenv('DB_DATABASE'),
