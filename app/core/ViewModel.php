@@ -64,21 +64,21 @@ class ViewModel
     {
         extract($this->variables);
        
-        if (!file_exists(__DIR__ . "/../app/Views/{$this->viewPath}.phtml")) {
+        if (!file_exists(__DIR__."/../views/{$this->viewPath}.phtml")) {
             echo "Error: View path not found!";
             return;
         }
-        return require __DIR__ . "/../app/Views/{$this->viewPath}.phtml";
+        return require __DIR__."/../views/{$this->viewPath}.phtml";
     }
 
     protected function layout()
     {
         extract($this->variables);
-       
-        if (!file_exists(__DIR__ . "/../app/Views/{$this->layoutPath}.phtml")) {
+
+        if (!file_exists(__DIR__."/../views/{$this->layoutPath}.phtml")) {
             echo "Error: Layout path not found!";
             return;
         }
-        return require __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
+        return require __DIR__."/../views/{$this->layoutPath}.phtml";
     }
 }
