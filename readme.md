@@ -20,6 +20,11 @@ Rotas WEB:
     POST - /user/{id}/update (Envio Edicao Usuarios)
     GET - v1/products/{id} (Detalhar Produtos)
    
+Rotas WEB: 
+    ENVIAR HEADER => Authorization: Bearer $2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi
+
+    (GET)) api/v1/show-results (Apenas demonstrativo do response (JSON TYPE))
+
 Observações:
     O parametros de configuração são passado ao conteiner a partir do environment: na linha 25 do docker-composer.yml
 
