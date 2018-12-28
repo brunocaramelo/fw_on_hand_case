@@ -82,7 +82,3 @@ class ViewModel
         return require __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
     }
 }
-
-
-
-

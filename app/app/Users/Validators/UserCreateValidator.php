@@ -57,4 +57,3 @@ class UserCreateValidator
         return empty($this->errors);
     }
 }
-

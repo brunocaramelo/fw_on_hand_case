@@ -16,13 +16,13 @@ class Route
 
     private function setRoutes($routes)
     {
-        foreach ($routes as $route){
+        foreach ($routes as $route) {
             $explode = explode('@', $route[1]);
             $r = [$route[0], $explode[0], $explode[1]];
-            if(isset($route[2])){
+            if (isset($route[2])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2]];
             }
-            if(isset($route[3])){
+            if (isset($route[3])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2], $route[3]];
             }
             $newRoutes[] = $r;
@@ -59,7 +59,7 @@ class Route
                 if (isset($route[3]) && $route[3] == 'auth' && $auth->check() === false) {
                     $action = 'forbiden';
                 }
-                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true ) {
+                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true) {
                     $action = 'unautorized';
                 }
                 break;
@@ -80,6 +80,5 @@ class Route
                     ->setup([], '404', 'Recurso nao encontrado')
                     ->render();
         }
-    
     }
 }

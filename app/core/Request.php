@@ -55,6 +55,4 @@ class Request
     {
         return $this->routeParams;
     }
-    
-
 }

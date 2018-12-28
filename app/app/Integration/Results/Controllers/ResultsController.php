@@ -17,11 +17,11 @@ class ResultsController
     {
         $response = $this->conteiner->get('response');
         $request->getBodyToArray();
-        $response->json([
-                            "foo" => "bar",
-                            "bar" => "foo",
-                        ]);
+        $response->json(
+            [
+                "foo" => "bar",
+                "bar" => "foo",
+            ]
+        );
     }
-
-
 }

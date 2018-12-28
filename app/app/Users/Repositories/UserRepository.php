@@ -86,11 +86,8 @@ class UserRepository
                                         usu.email as email,
                                         rol.name as role_name
                                     FROM users usu
-                                    INNER JOIN roles rol ON rol.id = usu.role_id"
-                                    );
+                                    INNER JOIN roles rol ON rol.id = usu.role_id");
         $query->execute();
         return $query->fetchAll();
     }
-    
 }
-

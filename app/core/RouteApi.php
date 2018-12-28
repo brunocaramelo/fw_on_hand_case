@@ -16,13 +16,13 @@ class RouteApi
 
     private function setRoutes($routes)
     {
-        foreach ($routes as $route){
+        foreach ($routes as $route) {
             $explode = explode('@', $route[1]);
             $r = [$route[0], $explode[0], $explode[1]];
-            if(isset($route[2])){
+            if (isset($route[2])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2]];
             }
-            if(isset($route[3])){
+            if (isset($route[3])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2], $route[3]];
             }
             $newRoutes[] = $r;
@@ -40,7 +40,7 @@ class RouteApi
         $url = $this->getUrl();
         $urlArray = explode('/', $url);
         
-        if (in_array('api',$urlArray)===false) {
+        if (in_array('api', $urlArray)===false) {
             return false;
         }
 
@@ -63,8 +63,12 @@ class RouteApi
                 if (isset($route[3]) && $route[3] == 'auth' && $auth->check() === false) {
                     die($this->conteiner->get('response')->json(['error'=>'Token Invalido'], 401));
                 }
-                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true ) {
-                    die($this->conteiner->get('response')->json(['error'=>'Voce nao tem permissao para este recurso'], 403));
+                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true) {
+                    die(
+                        $this->conteiner->get('response')->json([
+                            'error'=>'Voce nao tem permissao para este recurso'
+                        ], 403)
+                    );
                 }
                 break;
             }
@@ -78,6 +82,5 @@ class RouteApi
         if (!isset($found)) {
             $this->conteiner->get('response')->json(['error'=>'Recurso nao encontrado'], 404);
         }
-        
     }
 }

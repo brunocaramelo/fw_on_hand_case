@@ -118,5 +118,4 @@ class UserController extends BaseController
         $roleService = new PermissionRoleService(new PermissionRoleRepository($this->get('connection')));
         return $roleService->listAll();
     }
-
 }

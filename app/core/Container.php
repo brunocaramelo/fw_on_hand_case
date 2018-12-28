@@ -17,5 +17,4 @@ class Container
     {
         return $this->instances[$alias];
     }
-
 }

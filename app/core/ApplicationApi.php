@@ -40,7 +40,5 @@ class ApplicationApi
         if ($this->setedSetup === false) {
             $this->makeDefaultApplication();
         }
-        
     }
 }
-
