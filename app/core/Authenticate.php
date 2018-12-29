@@ -53,7 +53,6 @@ trait Authenticate
         return $redirector->route('/login');
     }
 
-
     private function getCredentialsByRoleId($roleId)
     {
         $listPerms = [];
