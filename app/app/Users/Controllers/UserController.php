@@ -19,14 +19,14 @@ use App\Users\Exceptions\UserCreateException;
 class UserController extends BaseController
 {
     use Authenticate;
-    protected $conteiner;
+    protected $container;
 
-    public function __construct(\Core\Container $conteiner)
+    public function __construct(\Core\Container $container)
     {
-        $this->userService = new UserService(new UserRepository($conteiner->get('connection')));
-        $this->auth = $conteiner->get('auth');
-        $this->conteiner = $conteiner;
-        $this->setupFlashMessages($this->conteiner->get('session'));
+        $this->userService = new UserService(new UserRepository($container->get('connection')));
+        $this->auth = $container->get('auth');
+        $this->container = $container;
+        $this->setupFlashMessages($this->container->get('session'));
     }
 
     public function create()
@@ -61,15 +61,15 @@ class UserController extends BaseController
         $getPost = $request->getPost()->post;
         $this->get('session')->set('inputs', $getPost);
         try {
-            $this->conteiner->get('connection')->beginTransaction();
+            $this->container->get('connection')->beginTransaction();
             $this->userService->create((array)$getPost);
             
-            $this->conteiner->get('connection')->commit();
+            $this->container->get('connection')->commit();
             return $this->get('redirect')->route('/users', [
                 'success' => ["Usuário criado com sucesso!"]
             ]);
         } catch (UserCreateException $error) {
-            $this->conteiner->get('connection')->rollback();
+            $this->container->get('connection')->rollback();
             return $this->get('redirect')->route('/user/create', [
                 'errors' => [$error->getMessage()]
             ]);
@@ -96,17 +96,17 @@ class UserController extends BaseController
         $getPost = $request->getPost()->post;
         $this->get('session')->set('inputs', $getPost);
         try {
-            $this->conteiner->get('connection')->beginTransaction();
+            $this->container->get('connection')->beginTransaction();
             
             $this->userService->update((array)$getPost);
             
-            $this->conteiner->get('connection')->commit();
+            $this->container->get('connection')->commit();
 
             return $this->get('redirect')->route('/users', [
                 'success' => ["Usuário editado com sucesso!"]
             ]);
         } catch (UserCreateException $error) {
-            $this->conteiner->get('connection')->rollback();
+            $this->container->get('connection')->rollback();
             return $this->get('redirect')->route('/user/'.$getPost->id.'/edit', [
                 'errors' => [$error->getMessage()]
             ]);

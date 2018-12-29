@@ -26,8 +26,8 @@ class ApplicationWeb
         $authInjetc = new Auth($sessionInjetc);
         $templateInject = new ViewModel($authInjetc, $sessionInjetc);
 
-        $conteiner  = new Container();
-        $conteiner->register('connection', (new DataBase)->getConnection())
+        $container  = new Container();
+        $container->register('connection', (new DataBase)->getConnection())
                   ->register('request', new Request())
                   ->register('session', $sessionInjetc)
                   ->register('redirect', new Redirect($sessionInjetc))
@@ -35,7 +35,7 @@ class ApplicationWeb
                   ->register('auth', $authInjetc);
                   
         $routes = require_once __DIR__."/../config/routes.php";
-        $route = new \Core\Route($routes, $conteiner);
+        $route = new \Core\Route($routes, $container);
     }
 
     public function run()

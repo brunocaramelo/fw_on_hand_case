@@ -5,11 +5,11 @@ namespace Core;
 class Route
 {
     private $routes;
-    private $conteiner;
+    private $container;
 
-    public function __construct(array $routes, $conteiner)
+    public function __construct(array $routes, $container)
     {
-        $this->conteiner = $conteiner;
+        $this->container = $container;
         $this->setRoutes($routes);
         $this->run();
     }
@@ -55,7 +55,7 @@ class Route
                 $found = true;
                 $controller = $route[1];
                 $action = $route[2];
-                $auth = $this->conteiner->get('auth');
+                $auth = $this->container->get('auth');
                 if (isset($route[3]) && $route[3] == 'auth' && $auth->check() === false) {
                     $action = 'forbiden';
                 }
@@ -67,16 +67,16 @@ class Route
         }
         
         if (isset($found)) {
-            $requestContext = $this->conteiner->get('request');
+            $requestContext = $this->container->get('request');
             $requestContext->setRouteParams($paramAlias);
             
-            $controller = new $controller($this->conteiner);
+            $controller = new $controller($this->container);
             $controller->$action($requestContext);
         }
 
         if (!isset($found)) {
             http_response_code(404);
-            $this->conteiner->get('template')
+            $this->container->get('template')
                     ->setup([], '404', 'Recurso nao encontrado')
                     ->render();
         }

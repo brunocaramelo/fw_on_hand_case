@@ -11,12 +11,12 @@ abstract class BaseController
     protected $errors;
     protected $inputs;
     protected $success;
-    protected $conteiner;
+    protected $container;
 
-    public function __construct(Container $conteiner)
+    public function __construct(Container $container)
     {
-
-        $this->conteiner = $conteiner;
+        
+        $this->container = $container;
         $this->view = new \stdClass;
         $this->auth = $this->get('auth');
         $session = $this->get('session');
@@ -35,9 +35,9 @@ abstract class BaseController
         return $this->get('redirect')->route('/');
     }
     
-    public function get($conteinerName)
+    public function get($containerName)
     {
-        return $this->conteiner->get($conteinerName);
+        return $this->container->get($containerName);
     }
 
     public function setupFlashMessages($session)
