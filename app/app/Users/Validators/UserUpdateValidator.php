@@ -57,4 +57,3 @@ class UserUpdateValidator
         return empty($this->errors);
     }
 }
-

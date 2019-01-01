@@ -24,15 +24,15 @@ class ApplicationApi
         $databaseInstance = (new DataBase)->getConnection();
         $authInjetc = new AuthApi($requestApi->getBearerToken(), $databaseInstance);
         
-        $conteiner  = new Container();
-        $conteiner->register('connection', $databaseInstance)
+        $container  = new Container();
+        $container->register('connection', $databaseInstance)
                   ->register('request', $requestApi)
                   ->register('response', new Response())
                   ->register('auth', $authInjetc);
                   
         
-        $routes = require_once __DIR__ . "/../app/api.php";
-        new \Core\RouteApi($routes, $conteiner);
+        $routes = require_once __DIR__ . "/../config/api.php";
+        new \Core\RouteApi($routes, $container);
     }
 
     public function run()
@@ -40,7 +40,5 @@ class ApplicationApi
         if ($this->setedSetup === false) {
             $this->makeDefaultApplication();
         }
-        
     }
 }
-

@@ -6,22 +6,22 @@ use Core\RequestApi;
 
 class ResultsController
 {
-    private $conteiner;
+    private $container;
 
-    public function __construct(\Core\Container $conteiner)
+    public function __construct(\Core\Container $container)
     {
-        $this->conteiner = $conteiner;
+        $this->container = $container;
     }
 
     public function showResults(RequestApi $request)
     {
-        $response = $this->conteiner->get('response');
+        $response = $this->container->get('response');
         $request->getBodyToArray();
-        $response->json([
-                            "foo" => "bar",
-                            "bar" => "foo",
-                        ]);
+        $response->json(
+            [
+                "foo" => "bar",
+                "bar" => "foo",
+            ]
+        );
     }
-
-
 }

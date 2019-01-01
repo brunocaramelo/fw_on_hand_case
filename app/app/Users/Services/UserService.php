@@ -53,9 +53,4 @@ class UserService
     {
         return $this->userRepository->listAll();
     }
-    
 }
-
-
-
-

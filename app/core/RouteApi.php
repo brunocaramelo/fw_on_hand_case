@@ -5,24 +5,24 @@ namespace Core;
 class RouteApi
 {
     private $routes;
-    private $conteiner;
+    private $container;
 
-    public function __construct(array $routes, $conteiner)
+    public function __construct(array $routes, $container)
     {
-        $this->conteiner = $conteiner;
+        $this->container = $container;
         $this->setRoutes($routes);
         $this->run();
     }
 
     private function setRoutes($routes)
     {
-        foreach ($routes as $route){
+        foreach ($routes as $route) {
             $explode = explode('@', $route[1]);
             $r = [$route[0], $explode[0], $explode[1]];
-            if(isset($route[2])){
+            if (isset($route[2])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2]];
             }
-            if(isset($route[3])){
+            if (isset($route[3])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2], $route[3]];
             }
             $newRoutes[] = $r;
@@ -40,7 +40,7 @@ class RouteApi
         $url = $this->getUrl();
         $urlArray = explode('/', $url);
         
-        if (in_array('api',$urlArray)===false) {
+        if (in_array('api', $urlArray)===false) {
             return false;
         }
 
@@ -59,25 +59,28 @@ class RouteApi
                 $found = true;
                 $controller = $route[1];
                 $action = $route[2];
-                $auth = $this->conteiner->get('auth');
+                $auth = $this->container->get('auth');
                 if (isset($route[3]) && $route[3] == 'auth' && $auth->check() === false) {
-                    die($this->conteiner->get('response')->json(['error'=>'Token Invalido'], 401));
+                    die($this->container->get('response')->json(['error'=>'Token Invalido'], 401));
                 }
-                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true ) {
-                    die($this->conteiner->get('response')->json(['error'=>'Voce nao tem permissao para este recurso'], 403));
+                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true) {
+                    die(
+                        $this->container->get('response')->json([
+                            'error'=>'Voce nao tem permissao para este recurso'
+                        ], 403)
+                    );
                 }
                 break;
             }
         }
         
         if (isset($found)) {
-            $controller = new $controller($this->conteiner);
-            $controller->$action($this->conteiner->get('request'));
+            $controller = new $controller($this->container);
+            $controller->$action($this->container->get('request'));
         }
 
         if (!isset($found)) {
-            $this->conteiner->get('response')->json(['error'=>'Recurso nao encontrado'], 404);
+            $this->container->get('response')->json(['error'=>'Recurso nao encontrado'], 404);
         }
-        
     }
 }

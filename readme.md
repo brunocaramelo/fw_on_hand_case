@@ -28,7 +28,7 @@ Rotas WEB:
     (GET)) api/v1/show-results (Apenas demonstrativo do response (JSON TYPE))
 
 Observações:
-    O parametros de configuração são passado ao conteiner a partir do environment: na linha 25 do docker-composer.yml
+    O parametros de configuração são passado ao container a partir do environment: na linha 25 do docker-composer.yml
 
 Primeiros Passos:
 
@@ -99,7 +99,7 @@ Caracteristicas:
 
             - Connection (Camada onde é enviada uma instancia do PDO pronta para uso)
 
-            - Conteiner (Camada onde são armazedas as dependencias e enviadas ao Controller e etc com o uso de apelidos como $this->get('session') )
+            - container (Camada onde são armazedas as dependencias e enviadas ao Controller e etc com o uso de apelidos como $this->get('session') )
 
         - api
 
@@ -110,7 +110,7 @@ Caracteristicas:
             - Connection (Camada onde é enviada uma instancia do PDO pronta para uso)
 
             - Auth ( Camada responsavel pela verificação de usuario a partir do token enviado no header e usado para o uso do ACL )
-            - Conteiner (Camada onde são armazedas as dependencias e enviadas ao Controller e etc com o uso de apelidos como $this->get('session') )
+            - container (Camada onde são armazedas as dependencias e enviadas ao Controller e etc com o uso de apelidos como $this->get('session') )
 
     - Router (Camada onde o ACL é aplicado antes da chamada do controller (simulando um middleware) e responsavel por               chamar o controller correto )
 

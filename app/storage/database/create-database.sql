@@ -9,6 +9,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 -- ---------------------------------------------------------
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'testes';
+
 CREATE DATABASE hand_admin;
 USE hand_admin;
 
@@ -20,8 +22,8 @@ CREATE TABLE `permission_role` (
 	`permission_id` Int( 255 ) NOT NULL,
 	CONSTRAINT `role_permission_unique` UNIQUE( `role_id`, `permission_id` ),
 	CONSTRAINT `unique_id` UNIQUE( `id` ) )
-CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci
+CHARACTER SET = utf8
+COLLATE = utf8_general_ci
 ENGINE = InnoDB
 AUTO_INCREMENT = 17;
 -- -------------------------------------------------------------
@@ -31,13 +33,13 @@ AUTO_INCREMENT = 17;
 -- CREATE TABLE "roles" ------------------------------------
 -- CREATE TABLE "roles" ----------------------------------------
 CREATE TABLE `roles` ( 
-	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`code` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`description` Text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
+	`code` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
+	`description` Text CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	PRIMARY KEY ( `id` ) )
 CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci
+COLLATE = utf8_general_ci
 ENGINE = InnoDB
 AUTO_INCREMENT = 5;
 -- -------------------------------------------------------------
@@ -48,12 +50,12 @@ AUTO_INCREMENT = 5;
 -- CREATE TABLE "permissions" ----------------------------------
 CREATE TABLE `permissions` ( 
 	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
-	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`slug` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
+	`slug` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
 	CONSTRAINT `unique_id` UNIQUE( `id` ),
 	CONSTRAINT `unique_slug` UNIQUE( `slug` ) )
-CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci
+CHARACTER SET = utf8
+COLLATE = utf8_general_ci
 ENGINE = InnoDB
 AUTO_INCREMENT = 7;
 -- -------------------------------------------------------------
@@ -64,17 +66,17 @@ AUTO_INCREMENT = 7;
 -- CREATE TABLE "users" ----------------------------------------
 CREATE TABLE `users` ( 
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
-	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
+	`email` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
 	`password` Text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`created_at` DateTime NOT NULL,
 	`updated_at` DateTime NOT NULL,
-	`api_token` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`api_token` VarChar( 255 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL,
 	`role_id` Int( 11 ) NOT NULL,
 	CONSTRAINT `email_unique` UNIQUE( `email` ),
 	CONSTRAINT `unique_id` UNIQUE( `id` ) )
-CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci
+CHARACTER SET = utf8
+COLLATE = utf8_general_ci
 ENGINE = InnoDB
 AUTO_INCREMENT = 9;
 -- -------------------------------------------------------------

@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php $titlePage ?></h3>
+                </div>
+                <?php require __DIR__.'/../alerts/_errors.phtml'; ?>
+                <div class="panel-body">
+
+                    <form action="/user/<?php echo $user->id ?>/update" method="post" accept-charset="utf-8">
+                    <input type="hidden" name="id" class="form-control" value="<?php echo $user->id ?>" />
+                        <div class="form-group">
+                            <label for="name" class="control-label">Name</label>
+                            <input type="text" name="name" class="form-control"
+                                   value="<?php echo (isset($inputs->name)) ? $inputs->name : $user->name; ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="control-label">E-mail</label>
+                            <input type="text" name="email" class="form-control"
+                                value="<?php echo (isset($inputs->email)) ? $inputs->email : $user->email ?>">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="roles" class="control-label">Perfis</label>
+                            <select name="role_id" id="role" class="form-control">
+                                <? foreach($roles as $role): ?>
+                                <option value="<?php echo  $role->id ?>" <?php echo ($role->id == $user->role_id ? 'selected="selected"':'') ?>><?php echo  $role->name ?></option>
+                                <? endforeach; ?>
+                            <select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_check" class="control-label">Confirm password</label>
+                            <input type="password" name="password_check" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i> Update
+                        </button>
+                        <a href="/users" class="btn btn-danger">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,24 +5,24 @@ namespace Core;
 class Route
 {
     private $routes;
-    private $conteiner;
+    private $container;
 
-    public function __construct(array $routes, $conteiner)
+    public function __construct(array $routes, $container)
     {
-        $this->conteiner = $conteiner;
+        $this->container = $container;
         $this->setRoutes($routes);
         $this->run();
     }
 
     private function setRoutes($routes)
     {
-        foreach ($routes as $route){
+        foreach ($routes as $route) {
             $explode = explode('@', $route[1]);
             $r = [$route[0], $explode[0], $explode[1]];
-            if(isset($route[2])){
+            if (isset($route[2])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2]];
             }
-            if(isset($route[3])){
+            if (isset($route[3])) {
                 $r = [$route[0], $explode[0], $explode[1], $route[2], $route[3]];
             }
             $newRoutes[] = $r;
@@ -55,11 +55,11 @@ class Route
                 $found = true;
                 $controller = $route[1];
                 $action = $route[2];
-                $auth = $this->conteiner->get('auth');
+                $auth = $this->container->get('auth');
                 if (isset($route[3]) && $route[3] == 'auth' && $auth->check() === false) {
                     $action = 'forbiden';
                 }
-                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true ) {
+                if (isset($route[4]) && $auth->can($route[4]) === false && $auth->check() === true) {
                     $action = 'unautorized';
                 }
                 break;
@@ -67,19 +67,18 @@ class Route
         }
         
         if (isset($found)) {
-            $requestContext = $this->conteiner->get('request');
+            $requestContext = $this->container->get('request');
             $requestContext->setRouteParams($paramAlias);
             
-            $controller = new $controller($this->conteiner);
+            $controller = new $controller($this->container);
             $controller->$action($requestContext);
         }
 
         if (!isset($found)) {
             http_response_code(404);
-            $this->conteiner->get('template')
+            $this->container->get('template')
                     ->setup([], '404', 'Recurso nao encontrado')
                     ->render();
         }
-    
     }
 }

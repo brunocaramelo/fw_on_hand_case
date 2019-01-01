@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <?php require __DIR__.'/../alerts/_success.phtml'; ?>
+        <?php if($auth->can('create-users')): ?>
+            <a href="/user/create" class='btn btn-primary'>Criar Novo Usuario</a>
+        <?php endif;?>
+        <table class="table">   
+            <thead>
+                <tr>
+                    <td>Nome</td>
+                    <td>Email</td>
+                    <td>Perfil</td>
+                    <td>Ações</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($users as $user):?>
+                <tr>
+                    <td><?php echo $user->name;?></td>
+                    <td><?php echo $user->email;?></td>
+                    <td><?php echo $user->role_name;?></td>
+                    <td>
+                        <?php if($auth->can('create-users')): ?>
+                            <a href="/user/<?php echo $user->id?>/edit" class="btn btn-success">Editar</a>
+                        <?php endif;?>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -11,8 +11,7 @@ class ViewModel
     private $viewPath = null;
     private $auth = null;
     private $session = null;
-    private $extractedVars = false;
-
+    
     public function __construct($auth, $session)
     {
         $this->auth = $auth;
@@ -62,27 +61,23 @@ class ViewModel
 
     protected function content()
     {
-        extract($this->variables);
-       
-        if (!file_exists(__DIR__ . "/../app/Views/{$this->viewPath}.phtml")) {
-            echo "Error: View path not found!";
-            return;
-        }
-        return require __DIR__ . "/../app/Views/{$this->viewPath}.phtml";
+        return $this->loaderFileView($this->viewPath);
     }
 
     protected function layout()
     {
+        return $this->loaderFileView($this->layoutPath);
+    }
+
+    private function loaderFileView($baseName)
+    {
         extract($this->variables);
-       
-        if (!file_exists(__DIR__ . "/../app/Views/{$this->layoutPath}.phtml")) {
+        if (!file_exists(__DIR__."/../resources/{$baseName}.phtml")) {
             echo "Error: Layout path not found!";
             return;
         }
-        return require __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
+        return require __DIR__."/../resources/{$baseName}.phtml";
     }
+
 }
-
-
-
 
