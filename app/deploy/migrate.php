@@ -1,7 +1,7 @@
 <?php
 
 
-$dsn = 'mysql:host='.getenv('DB_HOST').';dbname='.getenv('DB_DATABASE');
+$dsn = 'mysql:host='.getenv('DB_HOST').';';
 try {
     $db = new PDO($dsn, getenv('DB_ROOT_USERNAME'), getenv('DB_ROOT_PASSWORD'));
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
