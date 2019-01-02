@@ -37,7 +37,8 @@ trait Authenticate
             $session->set('credentials', $this->getCredentialsByRoleId($result->role_id));
             return $redirector->route('/');
         }
-
+        
+       
         return $redirector->route('/login', [
             'errors' => ['Usuário ou senha estão incorretos'],
             'inputs' => ['email' => $request->post->email]

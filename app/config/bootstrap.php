@@ -6,13 +6,11 @@ if (!session_id()) {
     session_start();
 }
 
-require __DIR__.'/../vendor/Psr4AutoloaderClass.php';
 
-$psr4 = new Psr4AutoloaderClass();
+require __DIR__.'/../vendor/AutoloaderClass.php';
 
-$psr4->addNameSpace('App', __DIR__.'/../app');
-$psr4->addNameSpace('Core', __DIR__.'/../core');
-$psr4->register();
+$autoload = new AutoloaderClass();
+$autoload->load();
 
 $applicationApi = new \Core\ApplicationApi([]);
 $applicationApi->run();
