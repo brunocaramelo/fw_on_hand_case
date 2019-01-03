@@ -22,7 +22,7 @@
                 <?php if($auth->check()) : ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                           <i class="glyphicon glyphicon-user"></i> <?php echo $auth->name() ?> <span class="caret"></span>
+                           <i class="glyphicon glyphicon-user"></i> <?php echo $auth->getName() ?> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <?php if($auth->can('list-users')): ?>

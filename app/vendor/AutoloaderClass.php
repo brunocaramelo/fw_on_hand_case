@@ -2,10 +2,8 @@
 
 class AutoloaderClass
 {
-   
     private $rootDir;
-    private $srcDir;
-    private $prefixes = ['App','Core'];
+    private $prefixes = ['App','Core','Vendor'];
 
     public function __construct()
     {

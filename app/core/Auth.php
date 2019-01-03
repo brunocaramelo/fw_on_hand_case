@@ -22,17 +22,17 @@ class Auth
         }
     }
 
-    public function id()
+    public function getId()
     {
         return $this->id;
     }
 
-    public function name()
+    public function getName()
     {
         return $this->name;
     }
 
-    public function email()
+    public function getEmail()
     {
         return $this->email;
     }
@@ -46,6 +46,6 @@ class Auth
 
     public function can($permission)
     {
-        return in_array($permission, $this->session->get('credentials'));
+        return in_array($permission, (array) $this->session->get('credentials'));
     }
 }

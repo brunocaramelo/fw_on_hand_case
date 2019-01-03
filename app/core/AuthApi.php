@@ -47,17 +47,17 @@ class AuthApi
         }
     }
 
-    public function id()
+    public function getId()
     {
         return $this->id;
     }
 
-    public function name()
+    public function getName()
     {
         return $this->name;
     }
 
-    public function email()
+    public function getEmail()
     {
         return $this->email;
     }

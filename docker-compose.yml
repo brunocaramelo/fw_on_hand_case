@@ -16,6 +16,11 @@ services:
       - MYSQL_PASSWORD="sandbox"
       - MYSQL_ROOT_HOST="%"
       - MYSQL_HOST="localhost"
+      - API_CONSUMER_KEY="ddb0a85e591fd863e45a2d656ceffaee05c2361bc"
+      - API_CONSUMER_SECRET="5e27e0cc96e9dad4f85b6b587b424cb2"
+      - API_TOKEN="c5ba1a609bca56bc26586af478596b7405c23621f"
+      - API_TOKEN_SECRET="ac8a208e8e933eaf891c742cee990607"
+      - API_BASE_URL="https://api.mediapost.com.br"
       
   php:
     build:
