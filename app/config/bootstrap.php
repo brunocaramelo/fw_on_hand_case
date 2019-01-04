@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Container\Container;
 
 if (!session_id()) {
     session_start();
 }
 
+date_default_timezone_set('America/Sao_Paulo');
 
 require __DIR__.'/../vendor/AutoloaderClass.php';
 
