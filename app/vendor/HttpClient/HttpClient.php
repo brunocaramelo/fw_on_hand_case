@@ -10,7 +10,7 @@ class HttpClient
     private $method ='GET';
     protected $defaultHeaders = [];
     protected $defaultOptions = [];
-    private $encode = 'json';
+    private $encode;
     private $urlBase;
     private $urlResource;
 
@@ -30,11 +30,11 @@ class HttpClient
         $this->prepareRequest($request);
 
         $result = curl_exec($this->ch);
-
+        
         if ($result === false) {
             $errno = curl_errno($this->ch);
             $errmsg = curl_error($this->ch);
-            $msg = "cURL request failed with error [$errno]: $errmsg";
+            $msg = "Falha ao requistar [$errno]: $errmsg";
             curl_close($this->ch);
             throw new HttpClientException(json_encode([$this->getUrl(),$request, $msg, $errno]));
         }
@@ -63,9 +63,26 @@ class HttpClient
         if (!empty($this->headers)) {
             curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->formatHeaders());
         }
-        if (!empty($this->data)) {
+        
+        if (!empty($this->data) && $this->getMethod('POST')) {
             curl_setopt($this->ch, CURLOPT_POSTFIELDS, $this->encodeData());
         }
+
+        if (!empty($this->data) && $this->getMethod('PUT')) {
+            $putString = 'str='.urlencode($this->encodeData());
+            $putFile = tmpfile();
+            fwrite($putFile, $putString);
+            fseek($putFile, 0);
+           
+            curl_setopt($this->ch, CURLOPT_PUT, true);
+            curl_setopt($this->ch, CURLOPT_INFILE, $putFile);
+            curl_setopt($this->ch, CURLOPT_INFILESIZE, strlen($putString));
+        }
+
+        if ($this->getMethod('POST')) {
+            $this->postData = $this->getData();
+        }
+
     }
     
     public function setUrlBase($url)
@@ -121,9 +138,22 @@ class HttpClient
         return $this->options;
     }
 
+    private function setUtf8(array $arrData)
+    {
+        foreach ($arrData as $key => $v) {
+            if (\is_array($v)) {
+                $arrData[$key] = $this->setUtf8($v);
+            } elseif ($v) {
+                $arrData[$key] = \utf8_encode($v);
+            }
+        }
+        return $arrData;
+    }
+
     public function encodeData()
     {
-        if ($this->encoding) {
+        $this->data = $this->setUtf8($this->data);
+        if ($this->encoding == 'json') {
             return json_encode($this->data);
         }
         return (!is_null($this->data) ? http_build_query($this->data) : '');
@@ -162,34 +192,27 @@ class HttpClient
         return $this->data;
     }
 
+    public function getPostData()
+    {
+        return $this->postData;
+    }
+
     private function setResponse($response)
     {
         $headerSize = curl_getinfo($this->ch, CURLINFO_HEADER_SIZE);
-        $this->infoReponse = curl_getinfo($this->ch);
-        $this->headersReponse = substr($response, 0, $headerSize);
-        $this->bodyReponse = substr($response, $headerSize);
+
+        $this->response = new HttpResponse(
+            substr($response, 0, $headerSize),
+            substr($response, $headerSize),
+            curl_getinfo($this->ch)
+        );
     }
 
     public function getResponse()
     {
-        return ['body' => $this->getBodyResponse(),
-                'header'=> $this->getHeadersReponse(),
-                'info'=> $this->getInfoReponse()];
+        return $this->response;
     }
     
-    public function getBodyResponse()
-    {
-        return  $this->bodyReponse;
-    }
-
-    public function getHeadersReponse()
-    {
-        return  $this->bodyReponse;
-    }
-
-    public function getInfoReponse()
-    {
-        return  $this->infoReponse;
-    }
+    
 
 }

@@ -30,16 +30,54 @@ class Client
         $this->consumerToken = $consumerToken;
         $this->consumerTokenSecret = $consumerTokenSecret;
 
+        // $this->client = (new HttpClient())
+        //     ->setUrlBase($this->baseUrl)
+        //     ->setUrlResource('resultado/cod/2')
+        //     ->setEncoding('json');
+            
+        // $this->setOauthRequestHeaders($this->client);
+        
+        // $this->client = (new HttpClient())
+        //     ->setUrlBase($this->baseUrl)
+        //     ->setUrlResource('lista/salvar')
+        //     ->setMethod('POST')
+        //     ->setData(['nome' => 'Olha lista vindo da api oi','uidcli'=> uniqid()]);
+        // $this->setOauthRequestHeaders($this->client);
+        
+        $arrMensagem = [
+           'uidcli' => 9887,
+            'cod' => 0,
+            'remetente' => [
+                'nome' => 'Meu remetente',
+                'email' => 'marketing@meusite.com.br'
+            ],
+            'pasta' => 'Pasta padrao',
+           'mensagem' => [
+                'ganalytics' => 'CampanhaAPI',
+                'assunto'    => 'TESTE API Acentos a ' . time(),
+                'html'       => 'Corpo da mensagem',
+                'texto'      => 'Mensagem em TXT'
+            ]
+        ];
+        
         $this->client = (new HttpClient())
             ->setUrlBase($this->baseUrl)
-            ->setUrlResource('resultado/cod/2')
-            ->setEncoding('json');
-            
+            ->setUrlResource('mensagem/salvar')
+            ->setEncoding('json')
+            ->setMethod('PUT')
+            ->setData($arrMensagem);
         $this->setOauthRequestHeaders($this->client);
-        
+
         $this->client->send();
         
-        die(print_r(['<pre>',$this->client->formatHeaders(),$this->client->getResponse()]));
+        die(
+            print_r(
+                ['<pre>',
+                        $this->client->getResponse()->getHeaders(),
+                        $this->client->getResponse()->getInfo(),
+                        $this->client->getResponse()->toArray(),
+                        ])
+            );
     }
     
     protected function setOauthRequestHeaders(HttpClient $client)
@@ -51,7 +89,8 @@ class Client
 
         $request = OAuthRequest::from_consumer_and_token($consumer, $token, $client->getMethod(), $client->getUrl());
         
-        $params =[];
+        $params = $client->getPostData() ?? [];
+        
         foreach ($params as $name => $value) {
             $request->set_parameter($name, $value);
         }

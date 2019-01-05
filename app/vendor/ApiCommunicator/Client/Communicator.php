@@ -14,10 +14,6 @@ class Communicator
 
     public function __construct()
     {
-        // $consumerKey,
-        // $consumerSecret,
-        // $consumerToken,
-        // $consumerTokenSecret
         $this->consumerKey = getenv('API_CONSUMER_KEY');
         $this->consumerSecret = getenv('API_CONSUMER_SECRET');
         $this->consumerToken = getenv('API_TOKEN');
