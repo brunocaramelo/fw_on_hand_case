@@ -6,12 +6,12 @@ class RouteApi
 {
     private $routes;
     private $container;
+    private $isRoute = true;
 
     public function __construct(array $routes, $container)
     {
         $this->container = $container;
         $this->setRoutes($routes);
-        $this->run();
     }
 
     private function setRoutes($routes)
@@ -35,12 +35,13 @@ class RouteApi
         return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    private function run()
+    public function run()
     {
         $url = $this->getUrl();
         $urlArray = explode('/', $url);
         
         if (in_array('api', $urlArray)===false) {
+            $this->isApiRoute(false);
             return false;
         }
 
@@ -82,5 +83,15 @@ class RouteApi
         if (!isset($found)) {
             $this->container->get('response')->json(['error'=>'Recurso nao encontrado'], 404);
         }
+    }
+
+    public function isApiRoute($isRoute)
+    {
+        $this->isRoute = $isRoute;
+    }
+
+    public function isValid()
+    {
+       return $this->isRoute;
     }
 }

@@ -24,8 +24,7 @@ class ResultsController
         //         "bar" => "foo",
         //     ]
         // );
-        $context = (new Communicator(
-         ))->send();
+        $context = (new Communicator())->send();
 
         die(print_r($context->getResponse()));
     }

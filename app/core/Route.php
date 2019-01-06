@@ -11,7 +11,6 @@ class Route
     {
         $this->container = $container;
         $this->setRoutes($routes);
-        $this->run();
     }
 
     private function setRoutes($routes)
@@ -35,7 +34,7 @@ class Route
         return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    private function run()
+    public function run()
     {
         $url = $this->getUrl();
         $urlArray = explode('/', $url);

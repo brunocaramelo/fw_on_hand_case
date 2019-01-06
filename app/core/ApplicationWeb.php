@@ -35,7 +35,8 @@ class ApplicationWeb
                   ->register('auth', $authInjetc);
                   
         $routes = require_once __DIR__."/../config/routes.php";
-        $route = new \Core\Route($routes, $container);
+        $router = new \Core\Route($routes, $container);
+        $router->run();
     }
 
     public function run()

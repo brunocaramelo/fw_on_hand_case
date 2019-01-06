@@ -15,5 +15,9 @@ $autoload->load();
 $applicationApi = new \Core\ApplicationApi([]);
 $applicationApi->run();
 
+if ($applicationApi->isValid()) {
+    return;
+}
+
 $application = new \Core\ApplicationWeb([]);
 $application->run();

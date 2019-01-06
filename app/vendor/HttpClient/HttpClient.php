@@ -27,7 +27,7 @@ class HttpClient
 
     public function send()
     {
-        $this->prepareRequest($request);
+        $this->prepareRequest();
 
         $result = curl_exec($this->ch);
         
@@ -36,7 +36,7 @@ class HttpClient
             $errmsg = curl_error($this->ch);
             $msg = "Falha ao requistar [$errno]: $errmsg";
             curl_close($this->ch);
-            throw new HttpClientException(json_encode([$this->getUrl(),$request, $msg, $errno]));
+            throw new HttpClientException(json_encode([$this->getUrl(), $msg, $errno]));
         }
 
         $this->setResponse($result);
@@ -48,41 +48,41 @@ class HttpClient
     public function prepareRequest()
     {
         $this->ch = curl_init();
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->ch, CURLOPT_HEADER, true);
-        curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($this->ch, CURLOPT_URL, $this->getUrl());
+        $configCurl[CURLOPT_RETURNTRANSFER] = true;
+        $configCurl[CURLOPT_HEADER] = true;
+        $configCurl[CURLOPT_SSL_VERIFYPEER] = false;
+        $configCurl[CURLOPT_URL] = $this->getUrl();
 
         $options = $this->getOptions();
         if (!empty($options)) {
             curl_setopt_array($this->ch, $options);
         }
 
-        $method = $this->getMethod();
-        curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, $this->getMethod());
+        $configCurl[CURLOPT_CUSTOMREQUEST] = $this->getMethod();
+
         if (!empty($this->headers)) {
-            curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->formatHeaders());
+            $configCurl[CURLOPT_HTTPHEADER] = $this->formatHeaders();
         }
         
-        if (!empty($this->data) && $this->getMethod('POST')) {
-            curl_setopt($this->ch, CURLOPT_POSTFIELDS, $this->encodeData());
+        if (!empty($this->data) && $this->getMethod() == 'POST') {
+            $configCurl[CURLOPT_POST] = true;
+            $configCurl[CURLOPT_POSTFIELDS] = $this->encodeData();
+            $this->postData = $this->getData();
+            
         }
 
-        if (!empty($this->data) && $this->getMethod('PUT')) {
+        if (!empty($this->data) && $this->getMethod() == 'PUT') {
             $putString = 'str='.urlencode($this->encodeData());
             $putFile = tmpfile();
             fwrite($putFile, $putString);
             fseek($putFile, 0);
            
-            curl_setopt($this->ch, CURLOPT_PUT, true);
-            curl_setopt($this->ch, CURLOPT_INFILE, $putFile);
-            curl_setopt($this->ch, CURLOPT_INFILESIZE, strlen($putString));
+            $configCurl[CURLOPT_PUT] = true;
+            $configCurl[CURLOPT_INFILE]=  $putFile;
+            $configCurl[CURLOPT_INFILESIZE]= strlen($putString);
         }
-
-        if ($this->getMethod('POST')) {
-            $this->postData = $this->getData();
-        }
-
+        
+        curl_setopt_array($this->ch, $configCurl);
     }
     
     public function setUrlBase($url)
@@ -144,7 +144,7 @@ class HttpClient
             if (\is_array($v)) {
                 $arrData[$key] = $this->setUtf8($v);
             } elseif ($v) {
-                $arrData[$key] = \utf8_encode($v);
+                $arrData[$key] = utf8_encode($v);
             }
         }
         return $arrData;
@@ -183,6 +183,10 @@ class HttpClient
     
     public function setData($data)
     {
+        if ($this->getMethod() == 'POST') {
+            $this->postData = $data;    
+        }
+        
         $this->data = $data;
         return $this;
     }

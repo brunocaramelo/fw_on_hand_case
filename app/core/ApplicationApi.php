@@ -32,7 +32,10 @@ class ApplicationApi
                   
         
         $routes = require_once __DIR__ . "/../config/api.php";
-        new \Core\RouteApi($routes, $container);
+        $router = new \Core\RouteApi($routes, $container);
+        $router->run();
+        $this->isValid = $router->isValid();
+
     }
 
     public function run()
@@ -41,4 +44,10 @@ class ApplicationApi
             $this->makeDefaultApplication();
         }
     }
+
+    public function isValid()
+    {
+        return $this->isValid;
+    }
+
 }

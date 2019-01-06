@@ -3,6 +3,7 @@
 namespace Vendor\ApiCommunicator\Client;
 
 use Vendor\ApiCommunicator\Client\Client;
+use Vendor\ApiCommunicator\Contacts\ContactHandler;
 
 class Communicator
 {
@@ -11,6 +12,7 @@ class Communicator
     private $consumerToken;
     private $consumerTokenSecret;
     private $client;
+    private $contactHandler;
 
     public function __construct()
     {
@@ -25,8 +27,16 @@ class Communicator
             $this->consumerToken,
             $this->consumerTokenSecret
         );
-                   
     }
+
+    public function contacts()
+    {
+        if (!$this->contactHandler instanceof ContactHandler) {
+            $this->contactHandler = new ContactHandler($this->client);
+        }
+        return $this->contactHandler;
+    }
+
 
    
 

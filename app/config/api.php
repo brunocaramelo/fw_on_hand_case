@@ -10,5 +10,11 @@ $route[] = [
     'auth',
     'show-message-result'
 ];
+$route[] = [
+    '/api/v1/contacts/list',
+    '\App\Integration\Contacts\Controllers\ContactsController@listContacts',
+    'auth',
+    'show-message-result'
+];
 
 return $route;
