@@ -1,9 +1,11 @@
 <?php
 
-$dsn = 'mysql:host='.getenv('DB_HOST').';';
+require __DIR__.'/../core/ConfigParser.php';
 
+$conf = (new \Core\ConfigParser())->get('database')['mysql'];
+$dsn = 'mysql:host='.$conf['host'].';';
 try {
-    $db = new PDO($dsn, getenv('DB_ROOT_USERNAME'), getenv('DB_ROOT_PASSWORD'));
+    $db = new PDO($dsn, $conf['root_username'], $conf['root_pass']);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(
         PDO::MYSQL_ATTR_INIT_COMMAND,

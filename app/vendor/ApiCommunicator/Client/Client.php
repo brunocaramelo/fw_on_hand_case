@@ -8,6 +8,7 @@ use Vendor\ApiCommunicator\Oauth\OAuthRequest;
 use Vendor\ApiCommunicator\Oauth\OAuthSignatureMethod_HMAC_SHA1;
 
 use Vendor\HttpClient\HttpClient;
+use Core\ConfigParser;
 
 class Client
 {
@@ -24,7 +25,9 @@ class Client
         $consumerToken,
         $consumerTokenSecret
     ) {
-        $this->baseUrl = getenv('API_BASE_URL');
+        $config = (new ConfigParser())->get('integration');
+        
+        $this->baseUrl = $config['api_base_url'];
         $this->consumerKey = $consumerKey;
         $this->consumerSecret = $consumerSecret;
         $this->consumerToken = $consumerToken;

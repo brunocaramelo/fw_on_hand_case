@@ -10,6 +10,7 @@ class Auth
     private $name = null;
     private $email = null;
     private $session = null;
+    private $apiToken = null;
 
     public function __construct(Session $session)
     {
@@ -19,6 +20,7 @@ class Auth
             $this->id = $user['id'];
             $this->name = $user['name'];
             $this->email = $user['email'];
+            $this->apiToken = $user['api_token'];
         }
     }
 
@@ -35,6 +37,11 @@ class Auth
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    public function getApiToken()
+    {
+        return $this->apiToken;
     }
 
     public function check()

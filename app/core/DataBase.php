@@ -4,6 +4,7 @@ namespace Core;
 
 use PDO;
 use PDOException;
+use Core\ConfigParser;
 
 class DataBase
 {
@@ -11,14 +12,14 @@ class DataBase
     
     public function __construct()
     {
-        $conf = require __DIR__."/../config/database.php";
-
-        $this->config['host'] = $conf['mysql']['host'];
-        $this->config['db'] = $conf['mysql']['database'];
-        $this->config['user'] = $conf['mysql']['user'];
-        $this->config['pass'] = $conf['mysql']['pass'];
-        $this->config['charset'] = $conf['mysql']['charset'];
-        $this->config['collation'] = $conf['mysql']['collation'];
+        $conf = (new ConfigParser())->get('database')['mysql'];
+        
+        $this->config['host'] = $conf['host'];
+        $this->config['db'] = $conf['database'];
+        $this->config['user'] = $conf['user'];
+        $this->config['pass'] = $conf['pass'];
+        $this->config['charset'] = $conf['charset'];
+        $this->config['collation'] = $conf['collation'];
     }
 
     public function getConnection()

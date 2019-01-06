@@ -2,6 +2,8 @@
 
 namespace Vendor\HttpClient;
 
+use Vendor\HttpClient\HttpResponseException;
+
 class HttpResponse
 {
     private $headers;
@@ -13,6 +15,7 @@ class HttpResponse
         $this->headers = $this->formatHeaders($headers);
         $this->body = $body;
         $this->info = $info;
+        $this->checkResponseByErrors($info);
     }
     
     public function toJson()
@@ -70,6 +73,15 @@ class HttpResponse
             $headers[] = $val;
         }
         return $headers;
+    }
+
+    private function checkResponseByErrors(array $info)
+    {
+        $errorCodeList = [403,401,500];
+        if (in_array($info['http_code'], $errorCodeList)) {
+            $bodyMessage = $this->toArray()['response']['mensagem'];
+            throw new HttpResponseException($bodyMessage, $info['http_code']);
+        }
     }
 }
 
