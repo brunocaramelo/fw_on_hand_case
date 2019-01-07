@@ -54,4 +54,9 @@ abstract class BaseController
             $session->destroy('success');
         }
     }
+
+    public function response()
+    {
+        return $this->container->get('response');
+    }
 }

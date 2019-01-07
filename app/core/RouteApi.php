@@ -76,8 +76,10 @@ class RouteApi
         }
         
         if (isset($found)) {
+            $requestContext = $this->container->get('request');
+            $requestContext->setRouteParams($paramAlias);
             $controller = new $controller($this->container);
-            $controller->$action($this->container->get('request'));
+            $controller->$action($requestContext);
         }
 
         if (!isset($found)) {

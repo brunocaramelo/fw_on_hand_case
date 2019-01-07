@@ -11,10 +11,23 @@ $route[] = [
     'show-message-result'
 ];
 $route[] = [
-    '/api/v1/contacts/list',
+    '/api/v1/list/{code}/contacts/',
     '\App\Integration\Contacts\Controllers\ContactsController@listContacts',
     'auth',
-    'show-message-result'
+    'create-contact-list'
+];
+
+$route[] = [
+    '/api/v1/lists',
+    '\App\Integration\Lists\Controllers\ListsController@getAll',
+    'auth',
+    'create-contact-list'
+];
+$route[] = [
+    '/api/v1/list/create',
+    '\App\Integration\Lists\Controllers\ListsController@createList',
+    'auth',
+    'create-contact-list'
 ];
 
 return $route;

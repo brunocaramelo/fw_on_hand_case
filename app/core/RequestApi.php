@@ -6,6 +6,7 @@ class RequestApi
 {
     private $headers;
     private $body;
+    private $routeParams;
     
     public function getHeaders()
     {
@@ -70,5 +71,15 @@ class RequestApi
             }
         }
         return null;
+    }
+
+    public function setRouteParams($routeParams)
+    {
+        $this->routeParams = $routeParams;
+    }
+
+    public function getRouteParams()
+    {
+        return $this->routeParams;
     }
 }

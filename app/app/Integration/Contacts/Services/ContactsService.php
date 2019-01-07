@@ -5,20 +5,20 @@ namespace App\Integration\Contacts\Services;
 use Core\RequestApi;
 use Vendor\ApiCommunicator\Client\Communicator;
 use App\Integration\Contacts\Resources\In\ContactsListResource;
+use App\Contacts\Repositories\ContactsRepository;
 
 class ContactsService
 {
-    private $container;
+    private $contactRepository;
 
-    public function __construct(\Core\Container $container)
+    public function __construct(ContactsRepository $repository)
     {
-        $this->container = $container;
+        $this->contactRepository = $repository;
     }
 
     public function getByList(array $list)
     {
-        $resultInteg = (new Communicator())
-                       ->contacts()
+        $resultInteg =  $this->getResource()
                        ->findByListMail($list)
                        ->get()
                        ->getResponse()
@@ -26,5 +26,20 @@ class ContactsService
 
         $resource = new ContactsListResource($resultInteg['result']);
         return $resource->toArray();
+    }
+
+    public function getAllContactsByList($code)
+    {
+        $emailList = [];
+        $all = $this->contactRepository->getAllByList($code);
+        foreach ($all as $item) {
+            $emailList[] = $item->email;
+        }
+        return $this->getByList($emailList);
+    }
+
+    private function getResource()
+    {
+        return (new Communicator())->contacts();
     }
 }

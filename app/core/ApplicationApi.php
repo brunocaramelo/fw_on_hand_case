@@ -7,6 +7,7 @@ use Core\AuthApi;
 use Core\RequestApi;
 use Core\Response;
 use Core\Container;
+use Core\ConfigParser;
 
 class ApplicationApi
 {
@@ -20,6 +21,8 @@ class ApplicationApi
 
     private function makeDefaultApplication()
     {
+        $routes = (new ConfigParser())->get('api');
+        
         $requestApi = new RequestApi();
         $databaseInstance = (new DataBase)->getConnection();
         $authInjetc = new AuthApi($requestApi->getBearerToken(), $databaseInstance);
@@ -31,7 +34,6 @@ class ApplicationApi
                   ->register('auth', $authInjetc);
                   
         
-        $routes = require_once __DIR__ . "/../config/api.php";
         $router = new \Core\RouteApi($routes, $container);
         $router->run();
         $this->isValid = $router->isValid();

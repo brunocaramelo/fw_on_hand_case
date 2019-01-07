@@ -11,6 +11,9 @@ $route[] = ['/user/{id}/edit', '\App\Users\Controllers\UserController@edit', 'au
 $route[] = ['/user/{id}/update', '\App\Users\Controllers\UserController@update', 'auth','create-users'];
 
 $route[] = ['/', '\App\Home\Controllers\HomeController@index'];
+$route[] = ['/lists', '\App\Lists\Controllers\ListController@index','auth','create-contact-list'];
+$route[] = ['/list/{id}/contacts', '\App\Lists\Controllers\ListController@getContactsFromListId','auth','create-contact-list'];
+$route[] = ['/list/new', '\App\Lists\Controllers\ListController@newList','auth','create-contact-list'];
 
 $route[] = ['/home', '\App\Home\Controllers\HomeController@home', 'auth'];
 

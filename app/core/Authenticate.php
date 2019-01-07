@@ -31,7 +31,8 @@ trait Authenticate
             $user = [
                 'id' => $result->id,
                 'name' => $result->name,
-                'email' => $result->email
+                'email' => $result->email,
+                'api_token' => $result->api_token
             ];
             $session->set('user', $user);
             $session->set('credentials', $this->getCredentialsByRoleId($result->role_id));

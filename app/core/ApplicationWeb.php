@@ -22,6 +22,8 @@ class ApplicationWeb
 
     private function makeDefaultApplication()
     {
+        $routes = (new ConfigParser())->get('routes');
+
         $sessionInjetc = new Session();
         $authInjetc = new Auth($sessionInjetc);
         $templateInject = new ViewModel($authInjetc, $sessionInjetc);
@@ -34,7 +36,6 @@ class ApplicationWeb
                   ->register('template', $templateInject)
                   ->register('auth', $authInjetc);
                   
-        $routes = require_once __DIR__."/../config/routes.php";
         $router = new \Core\Route($routes, $container);
         $router->run();
     }

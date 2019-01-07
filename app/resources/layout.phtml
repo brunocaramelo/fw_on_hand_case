@@ -5,7 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $titlePage ?> - E-maileiro</title>
+    
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/commons.js"></script>
+    <script src="/assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
 
+    <link href="/assets/js/jquery-ui/jquery-ui.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     
     <!-- HTML5 shim e Respond.js para suporte no IE8 de elementos HTML5 e media queries -->
@@ -16,13 +25,21 @@
     <![endif]-->
 </head>
 <body>
+<script>
+        urlPath = '<?php echo $_SERVER["SERVER_NAME"]?>/assets'
+        
+        closeAllsModal = function()
+        {
+            closeModalPage()
+            closeBlockPage()
+            closeBlockPageModal()
+        }
+        
+</script>
+
 <?php require_once __DIR__."/menu.phtml" ?>
 
 <?php $this->content() ?>
 
-<!-- jQuery (obrigatório para plugins JavaScript do Bootstrap) -->
-<script src="/assets/js/jquery.min.js"></script>
-<!-- Inclui todos os plugins compilados (abaixo), ou inclua arquivos separadados se necessário -->
-<script src="/assets/js/bootstrap.min.js"></script>
 </body>
 </html>

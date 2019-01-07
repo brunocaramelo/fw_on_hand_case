@@ -6,6 +6,6 @@ class ConfigParser
 {
     public function get($configName)
     {
-        return require __DIR__.'/../config/config/'.$configName.'.php';
+        return require __DIR__.'/../config/'.$configName.'.php';
     }
 }
