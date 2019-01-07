@@ -1,0 +1,50 @@
+<div class="acontainer">
+<form id="formListCreate">
+  <div class="form-group">
+    <label for="name">Nome da Lista:</label>
+    <input type="text" class="form-control" required id="name" name="name">
+  </div>
+  <a href="javascript:sendForm()" class="btn btn-primary margin-top-20px bg-success">Enviar</a>
+</form>
+</div>
+
+<script>
+sendForm = function()
+{
+    $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/api/v1/list/create",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            data: JSON.stringify(formToJSON("#formListCreate")),
+            success: function(response)
+            {
+                successDialog( 300 , 220 , 'Lista Criada com sucesso' , 'closeAllsModal();$("#list_of_lists").DataTable().ajax.reload();' )
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+function formToJSON( selector )
+{
+    var form = {};
+    $(selector).find(':input[name]:enabled').each( function() {
+        var self = $(this);
+        var name = self.attr('name');
+        if (form[name]) {
+            form[name] = form[name] + ',' + self.val();
+        }
+        else {
+            form[name] = self.val();
+        }
+    });
+
+    return form;
+}
+
+    
+</script>

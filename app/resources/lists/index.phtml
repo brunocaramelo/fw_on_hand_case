@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <?php require __DIR__.'/../alerts/_success.phtml'; ?>
+        <?php if($auth->can('create-users')): ?>
+            <a href="#" onclick="newContactByList()" class='btn btn-primary'>Nova Lista</a>
+        <?php endif;?>
+        <table class="table" id="list_of_lists" style="width:100%;">   
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Código</th>
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">E-mail</th>
+                    <th style="text-align: center;">Total Ativos</th>
+                    <th style="text-align: center;">Total Inativos</th>
+                    <th style="text-align: center;">Ações</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#list_of_lists').DataTable( { 
+        "processing": true,
+        "serverSide": true,
+        "paging": false,
+        "filter": false,
+        "info": false,
+        "ajax":{
+                url: "/api/v1/lists",
+                type: "GET",
+                headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+                
+            },
+        "columns": [
+                    { "data": "code" },
+                    { "data": "name" },
+                    { "data": "total" },
+                    { "data": "email" },
+                    { "data": "total_active" },
+                    { "data": "total_inactive" },
+                    {
+                    sortable: false,
+                        "render": function ( data, type, full, meta ) {
+                            var buttonID = "rollover_"+full.code;
+                            return  '<a id='+buttonID+' onclick="showContactByList('+full.code+')" class="btn btn-success fa " role="button">Visualizar Contatos</a> \
+                                     <a id='+buttonID+' onclick="addContactByList('+full.code+'))" class="btn btn-success fa " role="button">Adicionar Contato</a>';
+                        }
+                    }
+                ]
+         } )
+    } );
+    
+    showContactByList = function(codList)
+    {
+        $.fn.dataTable.ext.errMode = 'none';
+        $.ajax({
+                type: "GET",
+                url: "/list/"+codList+"/contacts",
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 750 , 670 , "Lista de Contatos" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+    
+    newContactByList = function()
+    {
+        $.fn.dataTable.ext.errMode = 'none';
+        $.ajax({
+                type: "GET",
+                url: "/list/new",
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 750 , 670 , "Nova Lista" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+    
+    addContactByList = function(codList)
+    {
+        return false;
+    }
+
+</script>
