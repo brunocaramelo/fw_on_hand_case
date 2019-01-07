@@ -24,7 +24,7 @@ CREATE TABLE `permission_role` (
 CHARACTER SET = utf8
 COLLATE = utf8_general_ci
 ENGINE = InnoDB
-AUTO_INCREMENT = 17;
+AUTO_INCREMENT = 18;
 -- -------------------------------------------------------------
 -- ---------------------------------------------------------
 
@@ -37,10 +37,28 @@ CREATE TABLE `roles` (
 	`description` Text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	PRIMARY KEY ( `id` ) )
-CHARACTER SET =utf8
+CHARACTER SET = utf8
 COLLATE = utf8_general_ci
 ENGINE = InnoDB
 AUTO_INCREMENT = 5;
+-- -------------------------------------------------------------
+-- ---------------------------------------------------------
+
+
+-- CREATE TABLE "contacts" ---------------------------------
+-- CREATE TABLE "contacts" -------------------------------------
+CREATE TABLE `contacts` ( 
+	`cod` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`uidcli` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`free1` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`free2` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`list_cod` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`how_create` Int( 255 ) NOT NULL )
+CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci
+ENGINE = InnoDB;
 -- -------------------------------------------------------------
 -- ---------------------------------------------------------
 
@@ -99,18 +117,19 @@ INSERT INTO `permission_role`(`id`,`role_id`,`permission_id`) VALUES ( '13', '4'
 INSERT INTO `permission_role`(`id`,`role_id`,`permission_id`) VALUES ( '14', '4', '4' );
 INSERT INTO `permission_role`(`id`,`role_id`,`permission_id`) VALUES ( '15', '5', '5' );
 INSERT INTO `permission_role`(`id`,`role_id`,`permission_id`) VALUES ( '16', '5', '6' );
+INSERT INTO `permission_role`(`id`,`role_id`,`permission_id`) VALUES ( '17', '1', '6' );
 -- ---------------------------------------------------------
 
 
 -- Dump data of "roles" ------------------------------------
-INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Master', 'master', 'pode fazer: Listar usuários;
-Cadastrar usuário;
+INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Master', 'master', 'pode fazer: Listar usuÃ¡rios;
+Cadastrar usuÃ¡rio;
 Cadastrar listas e contatos;
 Cadastrar mensagem;
 Enviar mensagem;
 Exibir resultados do envio', '1' );
-INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Sub Master', 'submaster', 'Listar usuários;
-Cadastrar usuário;
+INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Sub Master', 'submaster', 'Listar usuÃ¡rios;
+Cadastrar usuÃ¡rio;
 Cadastrar listas e contatos;
 Cadastrar mensagem;
 ', '2' );
@@ -123,9 +142,18 @@ Cadastrar mensagem;', '4' );
 -- ---------------------------------------------------------
 
 
+-- Dump data of "contacts" ---------------------------------
+INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '1', '', 'Bruno caramelo', '', '', 'bruno.caramelo5@gmail.com', '', '0' );
+INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '2', '', 'Comercial', '', '', 'comercial@mediapost.com.br', '1', '1' );
+INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '3', '', '', '', '', 'emaildois@exemplo.com', '4', '1' );
+INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '4', '', '', '', '', 'email@exemplo.com', '4', '1' );
+INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '5', '', '', '', '', 'emailtres@exemplo.com', '4', '1' );
+-- ---------------------------------------------------------
+
+
 -- Dump data of "permissions" ------------------------------
-INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '1', 'Listar usuários', 'list-users' );
-INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '2', 'Cadastrar usuário', 'create-users' );
+INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '1', 'Listar usuÃ¡rios', 'list-users' );
+INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '2', 'Cadastrar usuÃ¡rio', 'create-users' );
 INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '3', 'Cadastrar listas e contatos', 'create-contact-list' );
 INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '4', 'Cadastrar mensagem', 'create-message' );
 INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '5', 'Enviar mensagem', 'invite-message' );
@@ -135,19 +163,14 @@ INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '6', 'Exibir resultados d
 
 -- Dump data of "users" ------------------------------------
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '1', 'admin', 'admin@admin.com', '$2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi', '2018-12-23 14:00:00', '2018-12-23 14:00:00', '$2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi', '1' );
-INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '4', 'testa mudei', 'testa@testa.com', '$2y$10$6nPGjWp.dgmlEc3tjHNGhutTkRGZ6A5CkstKMhuBszPcWSX7qWMMq', '2018-12-24 03:00:15', '2018-12-25 23:04:19', '$2y$10$tpxeN7V0k3MN.loD5h7q/up4bjXNkZzYFIjD4.8Ok1WYEZXtaQ52i', '2' );
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '5', 'criador mensagem mudei', 'criador_mensagem@criador.com', '$2y$10$kN46aOqj.yMyg48ZB/.hsOcYz1fTXwwpUQNbysywihZJgFsbrYske', '2018-12-25 23:27:50', '2018-12-26 02:35:08', '$2y$10$7HGa7x12IXVHqkpzWogZK.8j2sZiRP2k9SzwavM00lqsX05xFVEc2', '4' );
-INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '6', 'enviador master mudei', 'enviador@master.com', '$2y$10$DmV6EUgPbm1v0o7iUJJLiu4fEbuRoGzgXaQvl5QfaOIfxO5vqGIXS', '2018-12-26 02:35:37', '2018-12-26 02:36:28', '$2y$10$fXQfLdVHwss8ETY3sihg/uh2GKgzyJ2zWjXBMCiRaOk0c1vsfcMXq', '3' );
-INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '7', 'teste teste', 'teste@teste.com', '$2y$10$tPjZjHrDUrU5Vw1jYTBDXOzoldh8p0jdlwlkTcPvunz.318bdW7oC', '2018-12-26 02:38:17', '2018-12-26 02:44:46', '$2y$10$rykgmax3a4L5uxZc7//V3uElNLBmU8uyqi9V2ergMgaZ7KyQv3tB.', '2' );
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '8', 'ewwerw', 'eeeee@eee.com', '$2y$10$1fsAwfX2syo74L0JiFYWTeJtgwVvVb4LeZOdw9A9aOObtPR4XSwUi', '2018-12-26 02:45:41', '2018-12-26 02:45:41', '$2y$10$vYeTM51M.juGd92av9CK.uKtq71kn2k6WFf3hMrzLYk6BCTcMi726', '4' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '6', 'enviador master mudei', 'enviador@master.com', '$2y$10$DmV6EUgPbm1v0o7iUJJLiu4fEbuRoGzgXaQvl5QfaOIfxO5vqGIXS', '2018-12-26 02:35:37', '2018-12-26 02:36:28', '$2y$10$fXQfLdVHwss8ETY3sihg/uh2GKgzyJ2zWjXBMCiRaOk0c1vsfcMXq', '3' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '4', 'testa mudei', 'testa@testa.com', '$2y$10$6nPGjWp.dgmlEc3tjHNGhutTkRGZ6A5CkstKMhuBszPcWSX7qWMMq', '2018-12-24 03:00:15', '2018-12-25 23:04:19', '$2y$10$tpxeN7V0k3MN.loD5h7q/up4bjXNkZzYFIjD4.8Ok1WYEZXtaQ52i', '2' );
+INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '7', 'teste teste', 'teste@teste.com', '$2y$10$tPjZjHrDUrU5Vw1jYTBDXOzoldh8p0jdlwlkTcPvunz.318bdW7oC', '2018-12-26 02:38:17', '2018-12-26 02:44:46', '$2y$10$rykgmax3a4L5uxZc7//V3uElNLBmU8uyqi9V2ergMgaZ7KyQv3tB.', '2' );
 -- ---------------------------------------------------------
 
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 -- ---------------------------------------------------------
 
 
