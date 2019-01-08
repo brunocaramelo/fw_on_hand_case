@@ -1,0 +1,49 @@
+<div class="acontainer">
+<form id="formContactCreate">
+  <div class="form-group">
+    <label for="name">Nome do Contato:</label>
+    <input type="hidden" class="form-control" required id="name" name="list" value="<?php echo $codeList; ?>">
+    <input type="text" class="form-control" required id="name" name="contact[name]">
+  </div>
+  
+  <div class="form-group">
+    <label for="name">E-mail:</label>
+    <input type="text" class="form-control" required id="name" name="contact[email]">
+  </div>
+
+  <div class="form-group">
+    <label for="name">Campo Livre 1:</label>
+    <input type="text" class="form-control" required id="name" name="contact[free1]">
+  </div>
+  
+  <div class="form-group">
+    <label for="name">Campo Livre 2:</label>
+    <input type="text" class="form-control" required id="name" name="contact[free2]">
+  </div>
+  
+  <a href="javascript:sendForm()" class="btn btn-primary margin-top-20px bg-success">Enviar</a>
+</form>
+</div>
+
+<script>
+sendForm = function()
+{
+    $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/api/v1/contact/create",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            data: JSON.stringify($('#formContactCreate').serializeJSON() ) ,
+            success: function(response)
+            {
+                successDialog( 300 , 220 , response.message , 'closeAllsModal();$("#list_of_lists").DataTable().ajax.reload();' )
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+</script>

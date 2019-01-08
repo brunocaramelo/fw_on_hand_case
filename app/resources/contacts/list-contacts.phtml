@@ -1,0 +1,34 @@
+<div class="dscontainer">
+    <div class="row">
+        <table class="table" id="list_of_contacts" style="width:83%;">   
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Código</th>
+                    <th style="text-align: center;">Nome</th>
+                     <th style="text-align: center;">E-mail</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#list_of_contacts').DataTable( { 
+        "processing": true,
+        "serverSide": true,
+        "paging": false,
+        "filter": false,
+        "info": false,
+        "ajax":{
+              url: "/api/v1/list/<?php echo $codeList?>/contacts/",
+              headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            },
+        "columns": [
+                    { "data": "code" },
+                    { "data": "name" },
+                    { "data": "email" },
+                ]
+         } )
+    } );
+</script>
