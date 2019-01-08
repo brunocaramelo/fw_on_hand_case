@@ -39,7 +39,7 @@ initLoad = function()
 	winH = $(window).height();
 	winW = $(window).width();
     $("#center-load").css({'top': 10, 'left': (winW-150)/2,'position':'absolute','z-index':'99999999999999999999'});
-	$('html, body').animate({scrollTop: '0px'}, 350);
+    $('html, body').animate({scrollTop: '0px'}, 350);
 };
 
 closeLoad = function()

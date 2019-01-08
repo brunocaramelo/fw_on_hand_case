@@ -16,7 +16,7 @@ server {
         add_header Access-Control-Allow-Origin *;
     }
     
-    location ~* \.(eot|ttf|woff|css|js|gif)$ {
+    location ~* \.(eot|ttf|woff|css|js|gif|woff2|png)$ {
         add_header Access-Control-Allow-Origin *;
     }
 
