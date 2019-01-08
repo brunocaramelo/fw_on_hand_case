@@ -44,4 +44,16 @@ class ContactsController
             return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
         }
     }
+
+    public function createContact(Request $request)
+    {
+        try {
+            $data = $request->getBodyToArray();
+
+            $responseApi = $this->contactService->create($data);
+            return $this->response->json([ 'data' => $responseApi, 'message' => 'Contato criado com sucesso' ]);
+        } catch (HttpResponseException $error) {
+            return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
+        }
+    }
 }

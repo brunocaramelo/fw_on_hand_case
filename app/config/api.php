@@ -29,5 +29,11 @@ $route[] = [
     'auth',
     'create-contact-list'
 ];
+$route[] = [
+    '/api/v1/contact/create',
+    '\App\Integration\Contacts\Controllers\ContactsController@createContact',
+    'auth',
+    'create-contact-list'
+];
 
 return $route;

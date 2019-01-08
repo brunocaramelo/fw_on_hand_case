@@ -13,8 +13,22 @@
 CREATE DATABASE IF NOT EXISTS hand_admin;
 USE hand_admin;
 
+-- Valentina Studio --
+-- MySQL dump --
+-- ---------------------------------------------------------
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+-- ---------------------------------------------------------
+
+
 -- CREATE TABLE "permission_role" --------------------------
 -- CREATE TABLE "permission_role" ------------------------------
+DROP TABLE IF EXISTS permission_role;
 CREATE TABLE `permission_role` ( 
 	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`role_id` Int( 255 ) NOT NULL,
@@ -31,6 +45,7 @@ AUTO_INCREMENT = 18;
 
 -- CREATE TABLE "roles" ------------------------------------
 -- CREATE TABLE "roles" ----------------------------------------
+DROP TABLE IF EXISTS roles;
 CREATE TABLE `roles` ( 
 	`name` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 	`code` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -47,15 +62,16 @@ AUTO_INCREMENT = 5;
 
 -- CREATE TABLE "contacts" ---------------------------------
 -- CREATE TABLE "contacts" -------------------------------------
+DROP TABLE IF EXISTS contacts;
 CREATE TABLE `contacts` ( 
-	`cod` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`code` Int( 11 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ),
 	`uidcli` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
 	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`free1` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`free2` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`free1` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+	`free2` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
 	`email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
 	`list_cod` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`how_create` Int( 255 ) NOT NULL )
+	`how_create` Int( 11 ) NOT NULL
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
@@ -65,6 +81,7 @@ ENGINE = InnoDB;
 
 -- CREATE TABLE "permissions" ------------------------------
 -- CREATE TABLE "permissions" ----------------------------------
+DROP TABLE IF EXISTS permissions;
 CREATE TABLE `permissions` ( 
 	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`name` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -81,6 +98,7 @@ AUTO_INCREMENT = 7;
 
 -- CREATE TABLE "users" ------------------------------------
 -- CREATE TABLE "users" ----------------------------------------
+DROP TABLE IF EXISTS users;
 CREATE TABLE `users` ( 
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`name` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -143,11 +161,11 @@ Cadastrar mensagem;', '4' );
 
 
 -- Dump data of "contacts" ---------------------------------
-INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '1', '', 'Bruno caramelo', '', '', 'bruno.caramelo5@gmail.com', '', '0' );
-INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '2', '', 'Comercial', '', '', 'comercial@mediapost.com.br', '1', '1' );
-INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '3', '', '', '', '', 'emaildois@exemplo.com', '4', '1' );
-INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '4', '', '', '', '', 'email@exemplo.com', '4', '1' );
-INSERT INTO `contacts`(`cod`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '5', '', '', '', '', 'emailtres@exemplo.com', '4', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '1', '', 'Bruno caramelo', '', '', 'bruno.caramelo5@gmail.com', '', '0' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '2', '', 'Comercial', '', '', 'comercial@mediapost.com.br', '1', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '3', '', '', '', '', 'emaildois@exemplo.com', '4', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '4', '', '', '', '', 'email@exemplo.com', '4', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '5', '', '', '', '', 'emailtres@exemplo.com', '4', '1' );
 -- ---------------------------------------------------------
 
 
@@ -171,6 +189,11 @@ INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`ap
 -- ---------------------------------------------------------
 
 
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 -- ---------------------------------------------------------
 
 

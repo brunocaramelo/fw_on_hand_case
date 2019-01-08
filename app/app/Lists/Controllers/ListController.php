@@ -22,14 +22,4 @@ class ListController extends BaseController
             ->setUseLayout(false)
             ->render();
     }
-
-    public function getContactsFromListId(Request $request)
-    {
-        $listId = $request->getRouteParams()['id'];
-        return $this->get('template')
-            ->setup([ 'codeList' => $listId ], 'lists/list-contacts', 'Listas de Contatos')
-            ->setUseLayout(false)
-            ->render();
-    }
-
 }

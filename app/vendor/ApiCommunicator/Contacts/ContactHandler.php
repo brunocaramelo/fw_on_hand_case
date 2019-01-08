@@ -16,14 +16,14 @@ class ContactHandler extends HandlerAbstract
         return $this;
     }
 
-    public function create()
+    public function create($data)
     {
         $this->client->getApiClient()
             ->setUrlResource('contato/salvar')
             ->setEncoding('json')
             ->setMethod('PUT')
-            ->setData($this->listContact);
-        return $this;
+            ->setData($data);
+        return $this->get();
     }
     
     public function findByCode($codeContact)

@@ -35,6 +35,7 @@ class ContactsItemResource
                 'genre' => $this->item['sexo'],
                 'commercial_phone' => $this->item['tel_comercial'],
                 'phone' => $this->item['telefone'],
+                'uidcli' => $this->item['uidcli'],
             ];
     }
 }

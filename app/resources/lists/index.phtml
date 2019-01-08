@@ -22,6 +22,7 @@
 
 <script>
 $(document).ready(function() {
+    $.fn.dataTable.ext.errMode = 'none';
     $('#list_of_lists').DataTable( { 
         "processing": true,
         "serverSide": true,
@@ -46,7 +47,7 @@ $(document).ready(function() {
                         "render": function ( data, type, full, meta ) {
                             var buttonID = "rollover_"+full.code;
                             return  '<a id='+buttonID+' onclick="showContactByList('+full.code+')" class="btn btn-success fa " role="button">Visualizar Contatos</a> \
-                                     <a id='+buttonID+' onclick="addContactByList('+full.code+'))" class="btn btn-success fa " role="button">Adicionar Contato</a>';
+                                     <a id='+buttonID+' onclick="addContactByList('+full.code+')" class="btn btn-success fa " role="button">Adicionar Contato</a>';
                         }
                     }
                 ]
@@ -62,7 +63,7 @@ $(document).ready(function() {
                 data: {},
                 success: function(response)
                 {
-                    openModalWindow( 750 , 670 , "Lista de Contatos" , response )
+                    openModalWindow( 650 , 670 , "Lista de Contatos" , response )
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                    returnErr = JSON.parse(jqXHR.responseText)
@@ -81,7 +82,7 @@ $(document).ready(function() {
                 data: {},
                 success: function(response)
                 {
-                    openModalWindow( 750 , 670 , "Nova Lista" , response )
+                    openModalWindow( 500 , 400 , "Nova Lista" , response )
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                    returnErr = JSON.parse(jqXHR.responseText)
@@ -93,7 +94,20 @@ $(document).ready(function() {
     
     addContactByList = function(codList)
     {
-        return false;
+        $.ajax({
+                type: "GET",
+                url: "list/"+codList+"/contact/new",
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 500 , 400 , "Nova Lista" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
     }
 
 </script>

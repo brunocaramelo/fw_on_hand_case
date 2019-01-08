@@ -33,8 +33,8 @@ class ListsController
     {
         try {
             $data = $request->getBodyToArray();
-            $responseApi = $this->listService->createList( $data );
-            return $this->response->json([ 'data'=> $responseApi ]);
+            $responseApi = $this->listService->createList($data);
+            return $this->response->json([ 'data'=> $responseApi, 'message' => 'Lista criada com sucesso' ]);
         } catch (HttpResponseException $error) {
             return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
         }

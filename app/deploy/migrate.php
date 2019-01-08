@@ -2,6 +2,7 @@
 
 require __DIR__.'/../core/ConfigParser.php';
 
+
 $conf = (new \Core\ConfigParser())->get('database')['mysql'];
 $dsn = 'mysql:host='.$conf['host'].';';
 try {

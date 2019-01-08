@@ -24,7 +24,7 @@ class ListsService
     
     public function createList($params)
     {
-        $params = [ 'nome'=> $params['name'] ];
+        $params = [ 'nome'=> $params['list']['name'] ];
         $resultInteg = $this->getResource()
                        ->create($params)
                        ->get()
