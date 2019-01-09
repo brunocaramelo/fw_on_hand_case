@@ -17,6 +17,12 @@ USE hand_admin;
 -- MySQL dump --
 -- ---------------------------------------------------------
 
+DROP TABLE IF EXISTS permission_role;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS contacts;
+DROP TABLE IF EXISTS permissions;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS messages;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,9 +32,9 @@ USE hand_admin;
 -- ---------------------------------------------------------
 
 
+
 -- CREATE TABLE "permission_role" --------------------------
 -- CREATE TABLE "permission_role" ------------------------------
-DROP TABLE IF EXISTS permission_role;
 CREATE TABLE `permission_role` ( 
 	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`role_id` Int( 255 ) NOT NULL,
@@ -45,7 +51,6 @@ AUTO_INCREMENT = 18;
 
 -- CREATE TABLE "roles" ------------------------------------
 -- CREATE TABLE "roles" ----------------------------------------
-DROP TABLE IF EXISTS roles;
 CREATE TABLE `roles` ( 
 	`name` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 	`code` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -62,16 +67,15 @@ AUTO_INCREMENT = 5;
 
 -- CREATE TABLE "contacts" ---------------------------------
 -- CREATE TABLE "contacts" -------------------------------------
-DROP TABLE IF EXISTS contacts;
 CREATE TABLE `contacts` ( 
-	`code` Int( 11 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ),
+	`code` Int( 11 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
 	`uidcli` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
 	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
 	`free1` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
 	`free2` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
 	`email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
 	`list_cod` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`how_create` Int( 11 ) NOT NULL
+	`how_create` Int( 11 ) NOT NULL )
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
@@ -81,7 +85,6 @@ ENGINE = InnoDB;
 
 -- CREATE TABLE "permissions" ------------------------------
 -- CREATE TABLE "permissions" ----------------------------------
-DROP TABLE IF EXISTS permissions;
 CREATE TABLE `permissions` ( 
 	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`name` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -98,7 +101,6 @@ AUTO_INCREMENT = 7;
 
 -- CREATE TABLE "users" ------------------------------------
 -- CREATE TABLE "users" ----------------------------------------
-DROP TABLE IF EXISTS users;
 CREATE TABLE `users` ( 
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
 	`name` VarChar( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -114,6 +116,24 @@ CHARACTER SET = utf8
 COLLATE = utf8_general_ci
 ENGINE = InnoDB
 AUTO_INCREMENT = 9;
+-- -------------------------------------------------------------
+-- ---------------------------------------------------------
+
+
+-- CREATE TABLE "messages" ---------------------------------
+-- CREATE TABLE "messages" -------------------------------------
+CREATE TABLE `messages` ( 
+	`code` Int( 255 ) NOT NULL,
+	`sender_name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`sender_email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`subject` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`body` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`folder` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`status` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`how_create` Int( 255 ) NOT NULL )
+CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci
+ENGINE = InnoDB;
 -- -------------------------------------------------------------
 -- ---------------------------------------------------------
 
@@ -140,14 +160,14 @@ INSERT INTO `permission_role`(`id`,`role_id`,`permission_id`) VALUES ( '17', '1'
 
 
 -- Dump data of "roles" ------------------------------------
-INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Master', 'master', 'pode fazer: Listar usuÃ¡rios;
-Cadastrar usuÃ¡rio;
+INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Master', 'master', 'pode fazer: Listar usuarios;
+Cadastrar usuario;
 Cadastrar listas e contatos;
 Cadastrar mensagem;
 Enviar mensagem;
 Exibir resultados do envio', '1' );
-INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Sub Master', 'submaster', 'Listar usuÃ¡rios;
-Cadastrar usuÃ¡rio;
+INSERT INTO `roles`(`name`,`code`,`description`,`id`) VALUES ( 'Sub Master', 'submaster', 'Listar usuarios;
+Cadastrar usuaio;
 Cadastrar listas e contatos;
 Cadastrar mensagem;
 ', '2' );
@@ -166,6 +186,18 @@ INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`
 INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '3', '', '', '', '', 'emaildois@exemplo.com', '4', '1' );
 INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '4', '', '', '', '', 'email@exemplo.com', '4', '1' );
 INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '5', '', '', '', '', 'emailtres@exemplo.com', '4', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '20', '5c3424e7aed48', 'esse vai', 'esse foi', 'esse mesmo', 'esse@vai.com', '25', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '21', '5c34254960bd3', 'esse vai ok', 'foi tranquilo', 'viu c', 'foi@ok.com.br', '25', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '22', '5c3425822a7f1', 'agora aqui', 'viu mando', 'mamama', 'agora@aqui', '15', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '23', '5c3425c18997c', 'Esse do mal', 'fo mal', 'msmsms', 'do@mail.com', '14', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '24', '5c34263520492', 'Lista do SSS', 'smsmsmsm', 'msmsmsmsm', 'lista@ss.com.br', '21', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '25', '5c342deda0bc5', 'contatoo novso', 'giugiug', 'iugigig', 'contatoo@novso.com', '26', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '26', '5c342e270abe1', 'oooooooi', 'kgbgiugiugiugiu', 'igiigig', 'hiuhui.iiiii@gmail.com', '26', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '27', '5c347755582ea', 'sdfsdfsdf contat', 'asdas', 'sssss', 'sdfsdfsdf@tao.com', '20', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '28', '5c353307a7d82', 'maooooe contato', 'livre 1', 'livre 2', 'maoo@ooe.com', '27', '99' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '30', '5c353f472f114', 'foiii', 'dad', 'ada', 'foi@ok.com.brs', '6', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '31', '5c3572c8764e4', 'adicionaeri', 'camo1', 'camp2', 'email@add.com', '28', '1' );
+INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`,`how_create`) VALUES ( '1', '5c3576f5e2fd1', 'Sou eu mesmo', 'maia mai', 'maiaauua', 'bruno.caramelo5@gmail.com', '28', '1' );
 -- ---------------------------------------------------------
 
 
@@ -186,6 +218,15 @@ INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`ap
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '6', 'enviador master mudei', 'enviador@master.com', '$2y$10$DmV6EUgPbm1v0o7iUJJLiu4fEbuRoGzgXaQvl5QfaOIfxO5vqGIXS', '2018-12-26 02:35:37', '2018-12-26 02:36:28', '$2y$10$fXQfLdVHwss8ETY3sihg/uh2GKgzyJ2zWjXBMCiRaOk0c1vsfcMXq', '3' );
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '4', 'testa mudei', 'testa@testa.com', '$2y$10$6nPGjWp.dgmlEc3tjHNGhutTkRGZ6A5CkstKMhuBszPcWSX7qWMMq', '2018-12-24 03:00:15', '2018-12-25 23:04:19', '$2y$10$tpxeN7V0k3MN.loD5h7q/up4bjXNkZzYFIjD4.8Ok1WYEZXtaQ52i', '2' );
 INSERT INTO `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`api_token`,`role_id`) VALUES ( '7', 'teste teste', 'teste@teste.com', '$2y$10$tPjZjHrDUrU5Vw1jYTBDXOzoldh8p0jdlwlkTcPvunz.318bdW7oC', '2018-12-26 02:38:17', '2018-12-26 02:44:46', '$2y$10$rykgmax3a4L5uxZc7//V3uElNLBmU8uyqi9V2ergMgaZ7KyQv3tB.', '2' );
+-- ---------------------------------------------------------
+
+
+-- Dump data of "messages" ---------------------------------
+INSERT INTO `messages`(`code`,`sender_name`,`sender_email`,`subject`,`body`,`folder`,`status`,`how_create`) VALUES ( '26', 'Bruno Caramelo Souza', 'bruno.caramelo5@gmail.com', 'vai logo', '<p>Digite sua mensagem.</p><p>Que cuidamos do resto</p><p><br></p>', 'API', 'sended', '1' );
+INSERT INTO `messages`(`code`,`sender_name`,`sender_email`,`subject`,`body`,`folder`,`status`,`how_create`) VALUES ( '27', 'Bruno Caramelo Souza', 'bruno.caramelo5@gmail.com', 'segunda mensagenm', '<p>dasdasdasda<strong>asdasdasdasd<u>asdasdas</u></strong></p>', 'API', 'pending', '1' );
+INSERT INTO `messages`(`code`,`sender_name`,`sender_email`,`subject`,`body`,`folder`,`status`,`how_create`) VALUES ( '28', 'Bruno Caramelo Souza', 'bruno.caramelo5@gmail.com', 'rtttttttttttttttttt', '<p>Digite sua mensagem.</p><p>Que cuidamos do resto</p><p><br></p>', 'API', 'pending', '1' );
+INSERT INTO `messages`(`code`,`sender_name`,`sender_email`,`subject`,`body`,`folder`,`status`,`how_create`) VALUES ( '29', 'Bruno Caramelo Souza', 'bruno.caramelo5@gmail.com', 'aaaaaaaaaaaaaaaaaaaa', '<p>Digite sua mensagem.</p><p>Que cuidamos do resto</p><p>sss</p>', 'API', 'pending', '1' );
+INSERT INTO `messages`(`code`,`sender_name`,`sender_email`,`subject`,`body`,`folder`,`status`,`how_create`) VALUES ( '30', 'Bruno Caramelo Souza', 'bruno.caramelo5@gmail.com', 'Como confirmo', '<p>Digite sua mensagem.</p><p>Que cuidamos do resto</p><p><br></p>', 'API', 'sended', '1' );
 -- ---------------------------------------------------------
 
 
