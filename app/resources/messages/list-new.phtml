@@ -1,0 +1,56 @@
+<div class="acontainer">
+<form id="formListCreate">
+  <div class="form-group">
+    <label for="name">Assunto:</label>
+    <input type="text" class="form-control" required id="name" name="message[subject]">
+  </div>
+  <div class="form-group">
+    <label for="name">Remetente Nome:</label>
+    <input type="text" class="form-control" required id="name" name="message[sender_name]">
+  </div>
+  <div class="form-group">
+    <label for="name">Remetente E-mail:</label>
+    <input type="text" class="form-control" required id="name" name="message[sender_email]">
+    <input type="hidden" class="form-control" name="message[folder]" value="API">
+    <input type="hidden" class="form-control" name="message[body]">
+  </div>
+ 
+  <div id="editorMessage">
+    <p>Digite sua mensagem.</p>
+    <p>Que cuidamos do resto</p>
+    <p><br></p>
+  </div>
+  
+    <br />
+  <a href="javascript:sendForm()" class="btn btn-primary margin-top-20px bg-success">Enviar</a>
+</form>
+</div>
+
+<script>
+sendForm = function()
+{
+    var formDataInfo = $('#formListCreate').serializeJSON();
+        formDataInfo.message.body = quill.root.innerHTML;
+    $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/api/v1/message/create",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            data: JSON.stringify(formDataInfo) ,
+            success: function(response)
+            {
+                console.log(response)
+                successDialog( 300 , 220 , response.message , 'closeAllsModal();$("#list_of_messages").DataTable().ajax.reload();' )
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+var quill = new Quill('#editorMessage', {
+    theme: 'snow'
+  });
+</script>

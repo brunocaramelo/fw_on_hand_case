@@ -11,7 +11,7 @@ class ContactsController extends BaseController
     {
         $listId = $request->getRouteParams()['id'];
         return $this->get('template')
-            ->setup([ 'codeList' => $listId ],'contacts/new-contact', 'Criar de Contatos')
+            ->setup([ 'codeList' => $listId ], 'contacts/new-contact', 'Criar de Contatos')
             ->setUseLayout(false)
             ->render();
     }

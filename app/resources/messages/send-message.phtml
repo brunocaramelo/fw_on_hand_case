@@ -1,0 +1,63 @@
+<div class="acontainer">
+<form id="formListCreate">
+  <div class="form-group">
+    <input type="hidden" name="send[code]" value="<?php echo $code?>">
+    <label for="name">Para Lista:</label>
+    <select name="send[list][]" id="list_to_send" class="form-control">
+</select>
+  </div>
+  
+    <br />
+  <a href="javascript:sendForm()" class="btn btn-primary margin-top-20px bg-success">Enviar</a>
+</form>
+</div>
+
+<script>
+sendForm = function()
+{
+    var formDataInfo = $('#formListCreate').serializeJSON();
+    $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/api/v1/message/send",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            data: JSON.stringify(formDataInfo) ,
+            success: function(response)
+            {
+                console.log(response)
+                successDialog( 300 , 220 , response.message , 'closeAllsModal();$("#list_of_messages").DataTable().ajax.reload();' )
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+populateBoxList = function(){
+  $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            url: "/api/v1/lists",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            success: function(response)
+            {
+              var selectbox = $('#list_to_send');
+                    selectbox.find('option').remove();
+                    $.each(response.data, function (i, d) {
+                        $('<option>').val(d.code).text(d.name).appendTo(selectbox);
+                    });   
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+$(document).ready(function() {
+  populateBoxList();
+});
+</script>

@@ -32,16 +32,10 @@
                                 <li><a href="/user/create"><i class="glyphicon glyphicon-edit"></i>Criar Usuarios</a></li>
                             <?php endif;?>
                             <?php if($auth->can('create-contact-list')): ?>
-                                <li><a href="/lists"><i class="glyphicon glyphicon-edit"></i>Cadastrar listas e contatos</a></li>
+                                <li><a href="/lists"><i class="glyphicon glyphicon-edit"></i>Listas e contatos</a></li>
                             <?php endif;?>
                             <?php if($auth->can('create-message')): ?>
-                                <li><a href="#"><i class="glyphicon glyphicon-edit"></i>Cadastrar mensagem</a></li>
-                            <?php endif;?>
-                            <?php if($auth->can('invite-message')): ?>
-                                <li><a href="#"><i class="glyphicon glyphicon-edit"></i>Enviar mensagem</a></li>
-                            <?php endif;?>
-                            <?php if($auth->can('show-message-result')): ?>
-                                <li><a href="#"><i class="glyphicon glyphicon-edit"></i>Exibir resultados do envio</a></li>
+                                <li><a href="/messages"><i class="glyphicon glyphicon-edit"></i>Mensagens</a></li>
                             <?php endif;?>
                             <li><a href="/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
                         </ul>

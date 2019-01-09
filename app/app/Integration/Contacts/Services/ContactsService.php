@@ -7,16 +7,19 @@ use Vendor\ApiCommunicator\Client\Communicator;
 use App\Integration\Contacts\Resources\In\ContactsListResource;
 use App\Integration\Contacts\Resources\Out\ContactsItemResource as ContactItemExternal;
 use App\Integration\Contacts\Resources\In\ContactsItemResource as ContactItemInternal;
+use Core\AuthApi as Auth;
 
 use App\Contacts\Repositories\ContactsRepository;
 
 class ContactsService
 {
     private $contactRepository;
+    private $auth;
 
-    public function __construct(ContactsRepository $repository)
+    public function __construct(ContactsRepository $repository, Auth $auth)
     {
         $this->contactRepository = $repository;
+        $this->auth = $auth;
     }
 
     public function getByList(array $list)
@@ -40,6 +43,7 @@ class ContactsService
         }
         return $this->getByList($emailList);
     }
+
     public function create(array $data)
     {
         
@@ -63,13 +67,14 @@ class ContactsService
         $resource = new ContactsListResource($resultInteg['result']);
         $recevedData = $resource->toArray();
         
-        $recevedData['0']['free1'] = $data['contact']['free1'];
-        $recevedData['0']['free2'] = $data['contact']['free2'];
-        $recevedData['0']['list_cod'] = $data['list'];
+        $recevedData[0]['free1'] = $data['contact']['free1'];
+        $recevedData[0]['free2'] = $data['contact']['free2'];
+        $recevedData[0]['list_cod'] = $data['list'];
+        $recevedData[0]['how_create'] = $this->auth->getId();
         
         $this->contactRepository->create($recevedData[0]);
         
-        return $recevedData;
+        return $recevedData[0];
     }
 
     private function getResource()

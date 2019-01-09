@@ -1,19 +1,16 @@
 <div class="container">
     <div class="row">
-        <?php if($auth->can('create-contact-list')): ?>
-            <a href="#" onclick="newContactByList()" class='btn btn-primary'>Nova Lista</a>
+        <?php if($auth->can('create-message')): ?>
+            <a href="#" onclick="newContactByList()" class='btn btn-primary'>Nova Mensagem</a>
         <?php endif;?>
-        <table class="table" id="list_of_lists" style="width:100%;">   
+        <table class="table" id="list_of_messages" style="width:100%;">   
             <thead>
                 <tr>
                     <th style="text-align: center;">Código</th>
-                    <th style="text-align: center;">Nome</th>
-                    <th style="text-align: center;">Total</th>
-                    <th style="text-align: center;">E-mail</th>
-                    <th style="text-align: center;">Total Ativos</th>
-                    <th style="text-align: center;">Total Inativos</th>
+                    <th style="text-align: center;">Assunto</th>
+                    <th style="text-align: center;">Status</th>
                     <th style="text-align: center;">Ações</th>
-                </tr>
+                    </tr>
             </thead>
         </table>
     </div>
@@ -22,7 +19,7 @@
 <script>
 $(document).ready(function() {
     $.fn.dataTable.ext.errMode = 'none';
-    $('#list_of_lists').DataTable( { 
+    $('#list_of_messages').DataTable( { 
         "processing": true,
         "serverSide": true,
         "paging": false,
@@ -31,40 +28,37 @@ $(document).ready(function() {
         "scrollY": "600px",
         "scrollCollapse": true,
         "ajax":{
-                url: "/api/v1/lists",
+                url: "/api/v1/messages",
                 type: "GET",
                 headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
                 
             },
         "columns": [
                     { "data": "code" },
-                    { "data": "name" },
-                    { "data": "total" },
-                    { "data": "email" },
-                    { "data": "total_active" },
-                    { "data": "total_inactive" },
+                    { "data": "subject" },
+                    { "data": "status" },
                     {
                     sortable: false,
                         "render": function ( data, type, full, meta ) {
                             var buttonID = "rollover_"+full.code;
-                            return  '<a id='+buttonID+' onclick="showContactByList('+full.code+')" class="btn btn-success fa " role="button">Visualizar Contatos</a> \
-                                     <a id='+buttonID+' onclick="addContactByList('+full.code+')" class="btn btn-success fa " role="button">Adicionar Contato</a>';
+                            return  '<a id='+buttonID+' onclick="inviteMessage('+full.code+')" class="btn btn-success fa " role="button">Enviar Mensagem</a> \
+                                     <a id='+buttonID+' onclick="showResults('+full.code+')" class="btn btn-success fa " role="button">Ver Resultados</a>';
                         }
                     }
                 ]
          } )
     } );
     
-    showContactByList = function(codList)
+    inviteMessage = function(codList)
     {
         $.fn.dataTable.ext.errMode = 'none';
         $.ajax({
                 type: "GET",
-                url: "/list/"+codList+"/contacts",
+                url: "/message/"+codList+"/send",
                 data: {},
                 success: function(response)
                 {
-                    openModalWindow( 650 , 670 , "Lista de Contatos" , response )
+                    openModalWindow( 700 , 400 , "Enviar Mensagem" , response )
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                    returnErr = JSON.parse(jqXHR.responseText)
@@ -79,11 +73,11 @@ $(document).ready(function() {
         $.fn.dataTable.ext.errMode = 'none';
         $.ajax({
                 type: "GET",
-                url: "/list/new",
+                url: "/message/new",
                 data: {},
                 success: function(response)
                 {
-                    openModalWindow( 500 , 400 , "Nova Lista" , response )
+                    openModalWindow( 500 , 600 , "Nova Mensagem" , response )
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                    returnErr = JSON.parse(jqXHR.responseText)
@@ -93,15 +87,15 @@ $(document).ready(function() {
         });
     }
     
-    addContactByList = function(codList)
+    showResults = function(codList)
     {
         $.ajax({
                 type: "GET",
-                url: "list/"+codList+"/contact/new",
+                url: "/message/"+codList+"/show-results",
                 data: {},
                 success: function(response)
                 {
-                    openModalWindow( 500 , 400 , "Nova Lista" , response )
+                    openModalWindow( 800 , 700 , "Resultados do Envio" , response )
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                    returnErr = JSON.parse(jqXHR.responseText)

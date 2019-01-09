@@ -1,0 +1,83 @@
+<div class="acontainer">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Codigo da Mensagem</strong></td>
+                <td id="code_message"></td>
+            </tr>
+            <tr>
+                <td><strong>Mensagens Abertas</strong></td>
+                <td id="open_messages"></td>
+            </tr>
+            <tr>
+                <td><strong>Mensagens abertas unicamente</strong></td>
+                <td id="unique_open_messages"></td>
+            </tr>
+            <tr>
+            <td><strong>Quantidade de clicks</strong></td>
+                <td id="click_quantity"></td>
+            </tr>
+            <tr>
+                <td><strong>Quantidade Cancelados</strong></td>
+                <td id="quantity_canceled"></td>
+            </tr>
+            <tr>
+                <td><strong>Quantidade Retornadas</strong></td>
+                <td id="quantity_returned"></td>
+            </tr>
+            <tr>
+                <td><strong>Quantidade Entregues</strong></td>
+                <td id="quantity_delivered"></td>
+            </tr>
+            <tr>
+                <td><strong>Tempo Total</strong></td>
+                <td id="total_time"></td>
+            </tr>
+            <tr>
+                <td><strong>Quantidade Agendados</strong></td>
+                <td id="quantity_scheduled"></td>
+            </tr>
+            <tr>
+                <td><strong>Quantidade Enviado</strong></td>
+                <td id="quantity_sent"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<script>
+populateTableResult = function(){
+  $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            url: "/api/v1/message/<?php echo $code;?>/show-results",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            success: function(response)
+            {
+                var data = response.data
+                $("#code_message").html(data.code_message)   
+                $("#open_messages").html(data.open_messages)   
+                $("#unique_open_messages").html(data.unique_open_messages)   
+                $("#click_quantity").html(data.click_quantity)   
+                $("#quantity_canceled").html(data.quantity_canceled)   
+                $("#quantity_returned").html(data.quantity_returned)   
+                $("#quantity_delivered").html(data.quantity_delivered)   
+                $("#total_time").html(data.total_time)   
+                $("#quantity_scheduled").html(data.quantity_scheduled)   
+                $("#quantity_sent").html(data.quantity_sent)   
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+$(document).ready(function() {
+    populateTableResult();
+});
+</script>

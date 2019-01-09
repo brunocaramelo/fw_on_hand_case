@@ -5,7 +5,7 @@
 // $route[] = ['/api/v1/create-message', '\App\Users\Controllers\UserController@login'];
 // $route[] = ['/api/v1/send-message', '\App\Users\Controllers\UserController@login'];
 $route[] = [
-    '/api/v1/show-results',
+    '/api/v1/message/{code}/show-results',
     '\App\Integration\Results\Controllers\ResultsController@showResults',
     'auth',
     'show-message-result'
@@ -34,6 +34,25 @@ $route[] = [
     '\App\Integration\Contacts\Controllers\ContactsController@createContact',
     'auth',
     'create-contact-list'
+];
+$route[] = [
+    '/api/v1/messages',
+    '\App\Integration\Messages\Controllers\MessageController@listMessages',
+    'auth',
+    'create-contact-list'
+];
+$route[] = [
+    '/api/v1/message/create',
+    '\App\Integration\Messages\Controllers\MessageController@createMessage',
+    'auth',
+    'create-message'
+];
+
+$route[] = [
+    '/api/v1/message/send',
+    '\App\Integration\Messages\Controllers\MessageController@sendMessage',
+    'auth',
+    'create-message'
 ];
 
 return $route;

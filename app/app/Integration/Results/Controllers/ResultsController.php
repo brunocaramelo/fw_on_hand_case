@@ -5,6 +5,9 @@ namespace App\Integration\Results\Controllers;
 use Core\RequestApi;
 use Vendor\ApiCommunicator\Client\Communicator;
 
+use App\Integration\Results\Services\ResultService;
+use Vendor\HttpClient\HttpResponseException;
+
 class ResultsController
 {
     private $container;
@@ -12,20 +15,19 @@ class ResultsController
     public function __construct(\Core\Container $container)
     {
         $this->container = $container;
+        $this->response = $this->container->get('response');
+        $this->messageService = new ResultService();
     }
 
     public function showResults(RequestApi $request)
     {
-        $response = $this->container->get('response');
-        // $request->getBodyToArray();
-        // $response->json(
-        //     [
-        //         "foo" => "bar",
-        //         "bar" => "foo",
-        //     ]
-        // );
-        $context = (new Communicator())->send();
-
-        die(print_r($context->getResponse()));
+        try {
+            $code = $request->getRouteParams()['code'];
+           
+            $responseApi = $this->messageService->getResultsByCode($code);
+            return $this->response->json([ 'data' => $responseApi ]);
+        } catch (HttpResponseException $error) {
+            return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
+        }
     }
 }

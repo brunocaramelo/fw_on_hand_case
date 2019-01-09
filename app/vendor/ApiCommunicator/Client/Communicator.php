@@ -5,6 +5,7 @@ namespace Vendor\ApiCommunicator\Client;
 use Vendor\ApiCommunicator\Client\Client;
 use Vendor\ApiCommunicator\Contacts\ContactHandler;
 use Vendor\ApiCommunicator\Lists\ListHandler;
+use Vendor\ApiCommunicator\Messages\MessageHandler;
 
 use Core\ConfigParser;
 
@@ -18,6 +19,7 @@ class Communicator
 
     private $contactHandler;
     private $listHandler;
+    private $messagesHandler;
 
     public function __construct()
     {
@@ -50,6 +52,14 @@ class Communicator
             $this->listHandler = new ListHandler($this->client);
         }
         return $this->listHandler;
+    }
+    
+    public function messages()
+    {
+        if (!$this->messagesHandler instanceof MessageHandler) {
+            $this->messagesHandler = new MessageHandler($this->client);
+        }
+        return $this->messagesHandler;
     }
 
 

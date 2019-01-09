@@ -7,6 +7,7 @@ use Vendor\HttpClient\HttpResponseException;
 use App\Contacts\Repositories\ContactsRepository;
 use Core\RequestApi as Request;
 
+
 class ContactsController
 {
     private $container;
@@ -18,7 +19,8 @@ class ContactsController
         $this->container = $container;
         $this->response = $this->container->get('response');
         $this->contactService = new ContactsService(
-            new ContactsRepository($container->get('connection'))
+            new ContactsRepository($container->get('connection')),
+            $this->container->get('auth')
         );
     }
 
