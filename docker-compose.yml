@@ -5,7 +5,7 @@ services:
     image: mariadb:latest
     container_name: mysql-on-hand
     volumes:
-      - ./data/mariadb:/var/lib/mysql
+      - ./data/mariadb-onhand:/var/lib/mysql
       - ./docker/mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports: 
       - "3306:3306"

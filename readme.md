@@ -25,8 +25,22 @@ Rotas WEB:
     ENVIAR HEADER 
         -Authorization: Bearer $2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi
 
-    (GET)) api/v1/show-results (Apenas demonstrativo do response (JSON TYPE))
-
+    (GET)) /lists (Listagem das listas)
+    (GET)) /list/{code}/contacts (Listagem de contatos de uma lista)
+    (POST)) /list/create (criação de lista)
+        - params
+            {"list":{"name":"Nome desta lista"}}
+    
+    (POST)) /message/create (criação de mensagem)
+        - params
+            {"message":{"subject":"Assunto da mensagem","sender_name":"remetente da mensagem","sender_email":"email@message.com","folder":"API","body":"<p>Digite sua mensagem.</p><p>Que <em>cuidamos</em> do resto</p><p>Mensagem <u>customizada</u> em <strong>HTML</strong></p>"}}
+    
+    (POST)) /message/send (envio de mensagem)
+        - params
+            {"send":{"code":"33","list":["12"]}}
+    (GET)) /message/{code}/show-results (relatorio de envio da mensagem)
+    
+    
 Observações:
     O parametros de configuração são passado ao container a partir do environment: na linha 25 do docker-composer.yml
 
@@ -105,6 +119,8 @@ Caracteristicas:
 
             - Request (Camada onde ocorre recuperação BODY (JSON ou TEXT/PLAIN) e cabeçalhos de autorização (Authorization Bearer) )
 
+            - Resource (Camada responsavel pelo trafego e estrategia de DEPARA entre o gateway e a API )
+            
             - Response (Camada responsavel pelo retorno do Gateway (JSON ou TEXT/PLAIN) e HTTP CODE )
 
             - Connection (Camada onde é enviada uma instancia do PDO pronta para uso)
@@ -116,10 +132,14 @@ Caracteristicas:
 
 
     - Uso de Dominios:
+            - User
+            - Lists
+            - Contacts
+            - Message
         - Aplicação é separada por contextos onde temos a separação dos mesmos tais como:
-            - Users:
                 -> Controllers (Camada de recepçao e resposta HTTP e responsavel por encaminhar ao service (Business Object) correto )
                 -> Service (Camada responsavel pela aplicação da regra de negocio )
                 -> Validator (Camada responsavel pela validação do INPUT recebido pela aplição e instanciando uma           Excessao expecifica quando necessario)
                 -> Repository ( Camada onde sao realizadas as consultas na camada de dados (Banco de dados no caso))
+                -> Resource ( Camada onde sao realizadas as consultas na camada de dados (Banco de dados no caso))
 

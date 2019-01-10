@@ -1,21 +1,8 @@
--- Valentina Studio --
--- MySQL dump --
--- ---------------------------------------------------------
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
--- ---------------------------------------------------------
 
 CREATE DATABASE IF NOT EXISTS hand_admin;
 USE hand_admin;
 
--- Valentina Studio --
--- MySQL dump --
--- ---------------------------------------------------------
+
 
 DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS roles;
@@ -24,17 +11,7 @@ DROP TABLE IF EXISTS permissions;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS messages;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
--- ---------------------------------------------------------
 
-
-
--- CREATE TABLE "permission_role" --------------------------
--- CREATE TABLE "permission_role" ------------------------------
 CREATE TABLE `permission_role` ( 
 	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`role_id` Int( 255 ) NOT NULL,
@@ -68,13 +45,13 @@ AUTO_INCREMENT = 5;
 -- CREATE TABLE "contacts" ---------------------------------
 -- CREATE TABLE "contacts" -------------------------------------
 CREATE TABLE `contacts` ( 
-	`code` Int( 11 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`uidcli` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`free1` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-	`free2` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-	`email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`list_cod` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`code` Int( 11 )  NOT NULL,
+	`uidcli` VarChar( 255 )  NOT NULL,
+	`name` VarChar( 255 )  NOT NULL,
+	`free1` VarChar( 255 )  NULL DEFAULT NULL,
+	`free2` VarChar( 255 )  NULL DEFAULT NULL,
+	`email` VarChar( 255 )  NOT NULL,
+	`list_cod` VarChar( 255 )  NOT NULL,
 	`how_create` Int( 11 ) NOT NULL )
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
@@ -124,12 +101,12 @@ AUTO_INCREMENT = 9;
 -- CREATE TABLE "messages" -------------------------------------
 CREATE TABLE `messages` ( 
 	`code` Int( 255 ) NOT NULL,
-	`sender_name` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`sender_email` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`subject` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`body` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`folder` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`status` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`sender_name` VarChar( 255 )  NOT NULL,
+	`sender_email` VarChar( 255 )  NOT NULL,
+	`subject` VarChar( 255 )  NOT NULL,
+	`body` VarChar( 255 )  NOT NULL,
+	`folder` VarChar( 255 )  NOT NULL,
+	`status` VarChar( 255 )  NOT NULL,
 	`how_create` Int( 255 ) NOT NULL )
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
@@ -230,11 +207,5 @@ INSERT INTO `messages`(`code`,`sender_name`,`sender_email`,`subject`,`body`,`fol
 -- ---------------------------------------------------------
 
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
--- ---------------------------------------------------------
 
 
