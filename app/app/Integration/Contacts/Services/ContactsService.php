@@ -85,7 +85,6 @@ class ContactsService
 
     public function update(array $data)
     {
-        
         $resourceSender = new ContactItemCompleteExternal($data['contact']);
         $resourceSender = $resourceSender->toArray();
         $resourceSenderApi = $resourceSender;

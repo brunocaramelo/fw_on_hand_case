@@ -35,13 +35,13 @@ class AuthApi
         $this->name = $userData->name;
         $this->id = $userData->id;
         $this->email = $userData->email;
-        $this->setPermissions($this->id);
+        $this->setPermissions($userData->role_id);
     }
     
-    private function setPermissions($userId)
+    private function setPermissions($roleId)
     {
         $permissions = new PermissionRoleRepository($this->dataInstance);
-        $persm = $permissions->getCredentialsByRoleId($userId);
+        $persm = $permissions->getCredentialsByRoleId($roleId);
         foreach ($persm as $perm) {
             $this->credentials[] = $perm->slug;
         }
