@@ -2,7 +2,6 @@
 
 namespace App\Integration\Lists\Services;
 
-use Core\RequestApi;
 use Vendor\ApiCommunicator\Client\Communicator;
 use App\Integration\Lists\Resources\In\ListListResource;
 use App\Integration\Lists\Resources\In\ListItemResource;
