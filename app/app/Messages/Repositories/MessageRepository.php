@@ -102,5 +102,4 @@ class MessageRepository
         
         return $query->execute();
     }
-    
 }
