@@ -200,8 +200,8 @@ INSERT INTO `contacts`(`code`,`uidcli`,`name`,`free1`,`free2`,`email`,`list_cod`
 
 
 -- Dump data of "permissions" ------------------------------
-INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '1', 'Listar usuÃ¡rios', 'list-users' );
-INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '2', 'Cadastrar usuÃ¡rio', 'create-users' );
+INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '1', 'Listar usuarios', 'list-users' );
+INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '2', 'Cadastrar usuario', 'create-users' );
 INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '3', 'Cadastrar listas e contatos', 'create-contact-list' );
 INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '4', 'Cadastrar mensagem', 'create-message' );
 INSERT INTO `permissions`(`id`,`name`,`slug`) VALUES ( '5', 'Enviar mensagem', 'invite-message' );
