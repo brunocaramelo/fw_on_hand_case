@@ -4,7 +4,6 @@ namespace Core;
 
 use PDO;
 use PDOException;
-use Core\ConfigParser;
 
 class DataBase
 {
