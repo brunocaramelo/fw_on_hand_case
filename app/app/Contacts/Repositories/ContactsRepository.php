@@ -53,6 +53,7 @@ class ContactsRepository
 
     public function update($params)
     {
+        
         $query = $this->conn->prepare("
                                     UPDATE contacts 
                                         SET name = :name,
@@ -75,6 +76,7 @@ class ContactsRepository
         $query->bindParam(':address', $params['address']);
         $query->bindParam(':phone', $params['phone']);
         $query->bindParam(':note', $params['note']);
+       
         return $query->execute();
     }  
 }

@@ -100,7 +100,7 @@ class ContactsService
             ->getResponse()
             ->toArray();
 
-        $this->contactRepository->update($data);
+        $this->contactRepository->update($data['contact']);
         
         return $data;
     }
