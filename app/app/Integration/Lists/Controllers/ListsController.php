@@ -39,5 +39,4 @@ class ListsController
             return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
         }
     }
-   
 }
