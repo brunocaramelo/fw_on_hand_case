@@ -2,13 +2,6 @@
 
 namespace Core;
 
-use Core\DataBase;
-use Core\AuthApi;
-use Core\RequestApi;
-use Core\Response;
-use Core\Container;
-use Core\ConfigParser;
-
 class ApplicationApi
 {
     private $dependences = [];
@@ -34,7 +27,7 @@ class ApplicationApi
                   ->register('auth', $authInjetc);
                   
         
-        $router = new \Core\RouteApi($routes, $container);
+        $router = new RouteApi($routes, $container);
         $router->run();
         $this->isValid = $router->isValid();
     }

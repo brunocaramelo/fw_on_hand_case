@@ -2,14 +2,6 @@
 
 namespace Core;
 
-use Core\Redirect;
-use Core\DataBase;
-use Core\Session;
-use Core\Auth;
-use Core\Request;
-use Core\Container;
-use Core\ViewModel;
-
 class ApplicationWeb
 {
     private $dependences = [];
@@ -36,7 +28,7 @@ class ApplicationWeb
                   ->register('template', $templateInject)
                   ->register('auth', $authInjetc);
                   
-        $router = new \Core\Route($routes, $container);
+        $router = new Route($routes, $container);
         $router->run();
     }
 
