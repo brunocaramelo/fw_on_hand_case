@@ -68,7 +68,6 @@ class MessageService
     }
     public function update(array $data)
     {
-        
         $resourceSender = new MessageItemExternal($data['message']);
         $resourceSender = $resourceSender->toArray();
         
@@ -94,5 +93,4 @@ class MessageService
     {
         return (new Communicator())->messages();
     }
-
 }
