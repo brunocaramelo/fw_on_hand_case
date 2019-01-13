@@ -55,9 +55,9 @@ class MessageRepository
     public function create($params)
     {
         $query = $this->conn->prepare("
-                                    INSERT INTO messages (code,sender_name,sender_email,subject,body,folder,status,how_create)
-                                    VALUES(:code,:sender_name,:sender_email,:subject,:body,:folder,:status,:how_create)
-                                ");
+            INSERT INTO messages (code,sender_name,sender_email,subject,body,folder,status,how_create)
+            VALUES(:code,:sender_name,:sender_email,:subject,:body,:folder,:status,:how_create)
+        ");
         $query->bindParam(':code', $params['code']);
         $query->bindParam(':sender_name', $params['sender_name']);
         $query->bindParam(':sender_email', $params['sender_email']);
