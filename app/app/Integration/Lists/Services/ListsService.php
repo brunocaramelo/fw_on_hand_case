@@ -39,5 +39,4 @@ class ListsService
     {
         return (new Communicator())->lists();
     }
-    
 }
