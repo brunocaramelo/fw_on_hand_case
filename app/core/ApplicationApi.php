@@ -37,7 +37,6 @@ class ApplicationApi
         $router = new \Core\RouteApi($routes, $container);
         $router->run();
         $this->isValid = $router->isValid();
-
     }
 
     public function run()
@@ -51,5 +50,4 @@ class ApplicationApi
     {
         return $this->isValid;
     }
-
 }
