@@ -33,6 +33,16 @@ class MessageController
         }
     }
     
+    public function listMessagesRecent()
+    {
+        try {
+            $responseApi = $this->messageService->getRecent();
+            return $this->response->json([ 'data' => (array) $responseApi ]);
+        } catch (HttpResponseException $error) {
+            return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
+        }
+    }
+    
     public function getMessageByCode(Request $request)
     {
         try {

@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="row">
         <h2 class="h2 col-xs-12"><?php $titlePage; ?></h2>
@@ -7,12 +8,129 @@
         <?php require __DIR__.'/../alerts/_errors.phtml'; ?>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-            <h1 class="h1 text-center">E-maileiro</h1>
-            <p>
-                Seja bem vindo a esta aplicacao mini
-            </p>
-            
-        </div>
+        <h2> Mensagens recentes</h2>
+    </div>
+
+    <div class="row">
+        <?php if($auth->can('create-message')): ?>
+            <a href="/messages" class='btn btn-primary'>Ver todas as Mensagens</a>
+        <?php endif;?>
+        <table class="table" id="list_of_messages" style="width:100%;">   
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Código</th>
+                    <th style="text-align: center;">Assunto</th>
+                    <th style="text-align: center;">Remetente</th>
+                    <th style="text-align: center;">Email Remetente</th>
+                    <th style="text-align: center;">Pasta</th>
+                    <th style="text-align: center;">Status</th>
+                    </tr>
+            </thead>
+        </table>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $.fn.dataTable.ext.errMode = 'none';
+    $('#list_of_messages').DataTable( { 
+        "processing": true,
+        "serverSide": true,
+        "paging": false,
+        "filter": false,
+        "info": false,
+        "scrollY": "600px",
+        "scrollCollapse": true,
+        "ajax":{
+                url: "/api/v1/messages/recent",
+                type: "GET",
+                headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+                
+            },
+        "columns": [
+                    { "data": "code" },
+                    { "data": "subject" },
+                    { "data": "sender_name" },
+                    { "data": "sender_email" },
+                    { "data": "folder" },
+                    { "data": "status" },
+                    
+                ]
+         } )
+    } );
+    
+    inviteMessage = function(codList)
+    {
+        $.fn.dataTable.ext.errMode = 'none';
+        $.ajax({
+                type: "GET",
+                url: "/message/"+codList+"/send",
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 700 , 400 , "Enviar Mensagem" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+    
+    newContactByList = function()
+    {
+        $.fn.dataTable.ext.errMode = 'none';
+        $.ajax({
+                type: "GET",
+                url: "/message/new",
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 500 , 600 , "Nova Mensagem" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+    
+    showResults = function(codList)
+    {
+        $.ajax({
+                type: "GET",
+                url: "/message/"+codList+"/show-results",
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 800 , 700 , "Resultados do Envio" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+
+    editMessage = function(codList)
+    {
+        $.ajax({
+                type: "GET",
+                url: "/message/"+codList,
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 800 , 700 , "Editar Mensagem" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+
+</script>

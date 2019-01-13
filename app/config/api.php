@@ -35,7 +35,13 @@ $route[] = [
     '/api/v1/messages',
     '\App\Integration\Messages\Controllers\MessageController@listMessages',
     'auth',
-    'create-contact-list'
+    'create-message'
+];
+$route[] = [
+    '/api/v1/messages/recent',
+    '\App\Integration\Messages\Controllers\MessageController@listMessagesRecent',
+    'auth',
+    'create-message'
 ];
 $route[] = [
     '/api/v1/message/create',

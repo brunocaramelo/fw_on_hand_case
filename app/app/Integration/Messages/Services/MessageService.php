@@ -27,6 +27,11 @@ class MessageService
         return $this->messageRepository->getAllByUser($this->auth->getId());
     }
 
+    public function getRecent()
+    {
+        return $this->messageRepository->getRecentByUser($this->auth->getId());
+    }
+
     public function sendMessage($data)
     {
         $data = $data['send'];

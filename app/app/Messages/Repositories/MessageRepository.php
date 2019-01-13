@@ -26,6 +26,16 @@ class MessageRepository
         return $query->fetchAll();
     }
 
+    public function getRecentByUser($userId)
+    {
+        $query = $this->conn->prepare("SELECT * FROM messages 
+            where how_create =:how_create
+            ORDER BY 1 DESC LIMIT 10");
+        $query->bindParam(':how_create', $userId);
+        $query->execute();
+        return $query->fetchAll();
+    }
+
     public function getAllByUser($userId)
     {
         $query = $this->conn->prepare("SELECT * FROM messages where how_create =:how_create");
