@@ -39,8 +39,10 @@ class UserService
             throw new UserCreateException(implode('<br />', $validator->getErrors()));
         }
 
-        $params['password'] = password_hash($params['password'], PASSWORD_BCRYPT);
-        $params['api_token'] = password_hash($params['password'], PASSWORD_BCRYPT);
+        if (!empty($params['password'])) {
+            $params['password'] = password_hash($params['password'], PASSWORD_BCRYPT);
+        }
+        
         return $this->userRepository->update($params);
     }
 

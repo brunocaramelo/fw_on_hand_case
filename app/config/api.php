@@ -54,7 +54,7 @@ $route[] = [
     '/api/v1/message/send',
     '\App\Integration\Messages\Controllers\MessageController@sendMessage',
     'auth',
-    'create-message'
+    'invite-message'
 ];
 
 $route[] = [
