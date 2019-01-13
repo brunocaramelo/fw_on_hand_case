@@ -3,8 +3,6 @@
 namespace App\Integration\Results\Controllers;
 
 use Core\RequestApi;
-use Vendor\ApiCommunicator\Client\Communicator;
-
 use App\Integration\Results\Services\ResultService;
 use Vendor\HttpClient\HttpResponseException;
 
