@@ -3,13 +3,8 @@
 namespace App\Users\Controllers;
 
 use Core\BaseController;
-use App\Models\User;
 use Core\Request;
-use Core\Redirect;
-use Core\Validator;
 use Core\Authenticate;
-
-
 use App\Users\Services\PermissionRoleService;
 use App\Users\Services\UserService;
 use App\Users\Repositories\PermissionRoleRepository;
