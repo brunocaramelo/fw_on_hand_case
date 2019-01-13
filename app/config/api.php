@@ -1,9 +1,5 @@
 <?php
 
-// $route[] = ['/api/v1/create-contact', '\App\Users\Controllers\UserController@login'];
-// $route[] = ['/api/v1/create-list', '\App\Users\Controllers\UserController@login'];
-// $route[] = ['/api/v1/create-message', '\App\Users\Controllers\UserController@login'];
-// $route[] = ['/api/v1/send-message', '\App\Users\Controllers\UserController@login'];
 $route[] = [
     '/api/v1/message/{code}/show-results',
     '\App\Integration\Results\Controllers\ResultsController@showResults',
@@ -47,12 +43,37 @@ $route[] = [
     'auth',
     'create-message'
 ];
+$route[] = [
+    '/api/v1/message/update',
+    '\App\Integration\Messages\Controllers\MessageController@updateMessage',
+    'auth',
+    'create-message'
+];
 
 $route[] = [
     '/api/v1/message/send',
     '\App\Integration\Messages\Controllers\MessageController@sendMessage',
     'auth',
     'create-message'
+];
+
+$route[] = [
+    '/api/v1/message/{code}',
+    '\App\Integration\Messages\Controllers\MessageController@getMessageByCode',
+    'auth',
+    'create-message'
+];
+$route[] = [
+    '/api/v1/contact/{code}',
+    '\App\Integration\Contacts\Controllers\ContactsController@getContactByCode',
+    'auth',
+    'create-message'
+];
+$route[] = [
+    '/api/v1/contacts/update',
+    '\App\Integration\Contacts\Controllers\ContactsController@updateContact',
+    'auth',
+    'create-contact-list'
 ];
 
 return $route;

@@ -58,4 +58,15 @@ class ContactsController
             return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
         }
     }
+
+    public function updateContact(Request $request)
+    {
+        try {
+            $data = $request->getBodyToArray();
+            $responseApi = $this->contactService->update($data);
+            return $this->response->json([ 'data' => $responseApi, 'message' => 'Contato editado com sucesso' ]);
+        } catch (HttpResponseException $error) {
+            return $this->response->json(['error'=>$error->getMessage()], $error->getCode());
+        }
+    }
 }

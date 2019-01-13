@@ -45,16 +45,21 @@ AUTO_INCREMENT = 5;
 -- CREATE TABLE "contacts" ---------------------------------
 -- CREATE TABLE "contacts" -------------------------------------
 CREATE TABLE `contacts` ( 
-	`code` Int( 11 )  NOT NULL,
-	`uidcli` VarChar( 255 )  NOT NULL,
-	`name` VarChar( 255 )  NOT NULL,
-	`free1` VarChar( 255 )  NULL DEFAULT NULL,
-	`free2` VarChar( 255 )  NULL DEFAULT NULL,
-	`email` VarChar( 255 )  NOT NULL,
-	`list_cod` VarChar( 255 )  NOT NULL,
-	`how_create` Int( 11 ) NOT NULL )
-CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci
+  `code` int(11) NOT NULL,
+  `uidcli` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `free1` varchar(255) DEFAULT NULL,
+  `free2` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `list_cod` varchar(255) NOT NULL,
+  `how_create` int(11) NOT NULL,
+  `employee` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `branch_activity` varchar(255) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL )
+CHARACTER SET = utf8
+COLLATE = utf8_general_ci
 ENGINE = InnoDB;
 -- -------------------------------------------------------------
 -- ---------------------------------------------------------

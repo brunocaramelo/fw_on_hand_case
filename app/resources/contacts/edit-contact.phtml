@@ -1,0 +1,111 @@
+<div class="acontainer">
+<form id="formContactCreate">
+
+<input type="hidden" class="form-control" required id="name" name="contact[list]">
+<input type="hidden" class="form-control" required id="name" name="contact[code]">
+<input type="hidden" class="form-control" required id="name" name="contact[uidcli]">
+
+<div class="form-group">
+    <label for="name">Nome do Contato:</label>
+    <input type="hidden" class="form-control" required id="name" name="list" value="<?php echo $codeList; ?>">
+    <input type="text" class="form-control" required id="name" name="contact[name]">
+  </div>
+  
+  <div class="form-group">
+    <label for="name">E-mail:</label>
+    <input type="text" class="form-control" required id="name" name="contact[email]" readonly="readonly">
+  </div>
+
+  <div class="form-group">
+    <label for="name">Campo Livre 1:</label>
+    <input type="text" class="form-control" required id="name" name="contact[free1]">
+  </div>
+  
+  <div class="form-group">
+    <label for="name">Campo Livre 2:</label>
+    <input type="text" class="form-control" required id="name" name="contact[free2]">
+  </div>
+  <div class="form-group">
+    <label for="name">Empresa:</label>
+    <input type="text" class="form-control" required id="name" name="contact[employee]">
+  </div>
+  <div class="form-group">
+    <label for="name">Ramo de atividade:</label>
+    <input type="text" class="form-control" required id="name" name="contact[branch_activity]">
+  </div>
+ <div class="form-group">
+    <label for="name">Endereço:</label>
+    <input type="text" class="form-control" required id="name" name="contact[address]">
+ </div>
+  
+ <div class="form-group">
+    <label for="name">Observação:</label>
+    <input type="text" class="form-control" required id="name" name="contact[note]">
+ </div>
+  
+ <div class="form-group">
+    <label for="name">Telefone:</label>
+    <input type="text" class="form-control" required id="name" name="contact[phone]">
+ </div>
+  
+  <a href="javascript:sendForm()" class="btn btn-primary margin-top-20px bg-success">Enviar</a>
+</form>
+</div>
+
+<script>
+sendForm = function()
+{
+    $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/api/v1/contacts/update",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            data: JSON.stringify($('#formContactCreate').serializeJSON() ) ,
+            success: function(response)
+            {
+                successDialog( 300 , 220 , response.message , 'closeAllsModal();$("#list_of_lists").DataTable().ajax.reload();' )
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+populateTableResult = function(){
+  $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            url: "/api/v1/contact/<?php echo $code;?>",
+            headers: { 'Authorization': 'Bearer <?php echo $auth->getApiToken();?>' },
+            success: function(response)
+            {
+                console.log(response.data)
+                $( "input[name='contact[code]']" ).val( response.data.code );
+                $( "input[name='contact[name]']" ).val( response.data.name );
+                $( "input[name='contact[email]']" ).val( response.data.email );
+                $( "input[name='contact[free1]']" ).val( response.data.free1 );
+                $( "input[name='contact[free2]']" ).val( response.data.free2 );
+                $( "input[name='contact[code]']" ).val( response.data.code );
+                $( "input[name='contact[employee]']" ).val( response.data.employee );
+                $( "input[name='contact[branch_activity]']" ).val( response.data.branch_activity );
+                $( "input[name='contact[address]']" ).val( response.data.address );
+                $( "input[name='contact[phone]']" ).val( response.data.phone );
+                $( "input[name='contact[note]']" ).val( response.data.note );
+                $( "input[name='contact[list]']" ).val( response.data.list_cod );
+                $( "input[name='contact[uidcli]']" ).val( response.data.uidcli );
+                
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                returnErr = JSON.parse(jqXHR.responseText)
+                messageError = str_replace_recursive( "\n",'<br />',returnErr.error)
+                errorDialog( 410 , 300 , messageError )
+            }
+    });
+}
+
+$(document).ready(function() {
+    populateTableResult();
+});
+</script>

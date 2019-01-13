@@ -16,11 +16,13 @@ $route[] = ['/list/new', '\App\Lists\Controllers\ListController@newList','auth',
 
 $route[] = ['/list/{id}/contacts', '\App\Contacts\Controllers\ContactsController@getContactsFromListId','auth','create-contact-list'];
 $route[] = ['/list/{id}/contact/new', '\App\Contacts\Controllers\ContactsController@createContactsFromListId','auth','create-contact-list'];
+$route[] = ['/contact/{code}', '\App\Contacts\Controllers\ContactsController@getContactByCode','auth','create-contact-list'];
 
 $route[] = ['/messages', '\App\Messages\Controllers\MessageController@index','auth','create-message'];
 $route[] = ['/message/new', '\App\Messages\Controllers\MessageController@newMessage','auth','create-message'];
 $route[] = ['/message/{code}/send', '\App\Messages\Controllers\MessageController@sendMessage','auth','create-message'];
 $route[] = ['/message/{code}/show-results', '\App\Messages\Controllers\MessageController@showResults','auth','create-message'];
+$route[] = ['/message/{code}', '\App\Messages\Controllers\MessageController@editMessage','auth','create-message'];
 
 $route[] = ['/home', '\App\Home\Controllers\HomeController@home', 'auth'];
 

@@ -6,6 +6,7 @@
                     <th style="text-align: center;">Código</th>
                     <th style="text-align: center;">Nome</th>
                      <th style="text-align: center;">E-mail</th>
+                     <th style="text-align: center;">Ações</th>
                 </tr>
             </thead>
         </table>
@@ -28,7 +29,34 @@ $(document).ready(function() {
                     { "data": "code" },
                     { "data": "name" },
                     { "data": "email" },
-                ]
+                    {
+                        sortable: false,
+                        "render": function ( data, type, full, meta ) {
+                                    var buttonID = "rollover_"+full.code;
+                                    return  '<a id='+buttonID+' onclick="editContactByCode('+full.code+')" class="btn btn-success fa " role="button">Editar Contato</a>';
+                                }
+                    }
+            ],
          } )
     } );
+
+    editContactByCode = function(codContact)
+    {
+        $.ajax({
+                type: "GET",
+                url: "contact/"+codContact,
+                data: {},
+                success: function(response)
+                {
+                    closeAllsModal()
+                    openModalWindow( 700 , 800 , "Editar Contato" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+
 </script>

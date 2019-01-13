@@ -24,4 +24,12 @@ class ContactsController extends BaseController
             ->setUseLayout(false)
             ->render();
     }
+    public function getContactByCode(Request $request)
+    {
+        $code = $request->getRouteParams()['code'];
+        return $this->get('template')
+            ->setup([ 'code' => $code ], 'contacts/edit-contact', 'Editar Contato')
+            ->setUseLayout(false)
+            ->render();
+    }
 }

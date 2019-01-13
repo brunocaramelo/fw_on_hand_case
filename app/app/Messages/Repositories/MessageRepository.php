@@ -13,7 +13,7 @@ class MessageRepository
 
     public function findByCode($code)
     {
-        $query = $this->conn->prepare("SELECT * FROM messages WHERE cod=:code");
+        $query = $this->conn->prepare("SELECT * FROM messages WHERE code=:code");
         $query->bindParam(':code', $code);
         $query->execute();
         return $query->fetch();
@@ -68,6 +68,27 @@ class MessageRepository
                                     WHERE code=:code
                                 ");
         $query->bindParam(':code', $code);
+        
+        return $query->execute();
+    }
+
+    public function update($data)
+    {
+        $query = $this->conn->prepare("
+                                    UPDATE messages 
+                                        SET body=:body,
+                                        subject=:subject,
+                                        sender_name=:sender_name,
+                                        sender_email=:sender_email,
+                                        folder=:folder
+                                    WHERE code=:code
+                                ");
+        $query->bindParam(':body', $data['body']);
+        $query->bindParam(':subject', $data['subject']);
+        $query->bindParam(':sender_name', $data['sender_name']);
+        $query->bindParam(':sender_email', $data['sender_email']);
+        $query->bindParam(':folder', $data['folder']);
+        $query->bindParam(':code', $data['code']);
         
         return $query->execute();
     }

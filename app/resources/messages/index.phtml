@@ -42,7 +42,8 @@ $(document).ready(function() {
                         "render": function ( data, type, full, meta ) {
                             var buttonID = "rollover_"+full.code;
                             return  '<a id='+buttonID+' onclick="inviteMessage('+full.code+')" class="btn btn-success fa " role="button">Enviar Mensagem</a> \
-                                     <a id='+buttonID+' onclick="showResults('+full.code+')" class="btn btn-success fa " role="button">Ver Resultados</a>';
+                                     <a id='+buttonID+' onclick="showResults('+full.code+')" class="btn btn-success fa " role="button">Ver Resultados</a> \
+                                     <a id='+buttonID+' onclick="editMessage('+full.code+')" class="btn btn-success fa " role="button">Editar Mensagem</a>';
                         }
                     }
                 ]
@@ -96,6 +97,24 @@ $(document).ready(function() {
                 success: function(response)
                 {
                     openModalWindow( 800 , 700 , "Resultados do Envio" , response )
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                   returnErr = JSON.parse(jqXHR.responseText)
+                   messageError = str_replace_recursive( "\n",'<br />',returnErr.message)
+                   errorDialog( 410 , 300 , messageError )
+                }
+        });
+    }
+
+    editMessage = function(codList)
+    {
+        $.ajax({
+                type: "GET",
+                url: "/message/"+codList,
+                data: {},
+                success: function(response)
+                {
+                    openModalWindow( 800 , 700 , "Editar Mensagem" , response )
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                    returnErr = JSON.parse(jqXHR.responseText)

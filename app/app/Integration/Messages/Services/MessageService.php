@@ -64,6 +64,29 @@ class MessageService
         
         return $dataPersist;
     }
+    public function update(array $data)
+    {
+        
+        $resourceSender = new MessageItemExternal($data['message']);
+        $resourceSender = $resourceSender->toArray();
+        
+        $this->getResource()
+            ->create($resourceSender)
+            ->getResponse()
+            ->toArray();
+
+        $dataPersist = $data['message'];
+        
+        $this->messageRepository->update($dataPersist);
+        
+        return $dataPersist;
+    }
+
+    public function getByCode($code)
+    {
+        return $this->messageRepository->findByCode($code);
+    }
+
 
     private function getResource()
     {

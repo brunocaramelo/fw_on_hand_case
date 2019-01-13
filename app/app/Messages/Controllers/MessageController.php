@@ -22,6 +22,15 @@ class MessageController extends BaseController
             ->setUseLayout(false)
             ->render();
     }
+    
+    public function editMessage(Request $request)
+    {
+        $code = $request->getRouteParams()['code'];
+        return $this->get('template')
+            ->setup([ 'code'=> $code ], 'messages/edit', 'Editar Mensagem')
+            ->setUseLayout(false)
+            ->render();
+    }
 
     public function sendMessage(Request $request)
     {

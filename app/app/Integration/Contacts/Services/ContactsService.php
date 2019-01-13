@@ -6,6 +6,7 @@ use Core\RequestApi;
 use Vendor\ApiCommunicator\Client\Communicator;
 use App\Integration\Contacts\Resources\In\ContactsListResource;
 use App\Integration\Contacts\Resources\Out\ContactsItemResource as ContactItemExternal;
+use App\Integration\Contacts\Resources\Out\ContactsItemCompleteResource as ContactItemCompleteExternal;
 use App\Integration\Contacts\Resources\In\ContactsItemResource as ContactItemInternal;
 use Core\AuthApi as Auth;
 
@@ -44,6 +45,11 @@ class ContactsService
         return $this->getByList($emailList);
     }
 
+    public function getByCode($code)
+    {
+        return  $this->contactRepository->getByCode($code);
+    }
+
     public function create(array $data)
     {
         
@@ -75,6 +81,28 @@ class ContactsService
         $this->contactRepository->create($recevedData[0]);
         
         return $recevedData[0];
+    }
+
+    public function update(array $data)
+    {
+        
+        $resourceSender = new ContactItemCompleteExternal($data['contact']);
+        $resourceSender = $resourceSender->toArray();
+        $resourceSenderApi = $resourceSender;
+        
+        $listSend = [
+            'lista' => $data['contact']['list'],
+            'contato' => [ $resourceSenderApi ]
+        ];
+        
+        $this->getResource()
+            ->create($listSend)
+            ->getResponse()
+            ->toArray();
+
+        $this->contactRepository->update($data);
+        
+        return $data;
     }
 
     private function getResource()

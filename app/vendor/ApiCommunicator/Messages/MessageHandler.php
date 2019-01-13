@@ -44,6 +44,15 @@ class MessageHandler extends HandlerAbstract
         return $this;
     }
 
+    public function getByCode($codeMessage)
+    {
+        $this->client->getApiClient()
+            ->setUrlResource('mensagem/cod/'.$codeMessage)
+            ->setEncoding('json')
+            ->setMethod('GET');
+        return $this;
+    }
+
     public function get()
     {
         return $this->client->send();
