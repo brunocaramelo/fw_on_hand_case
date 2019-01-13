@@ -3,7 +3,6 @@
 namespace App\Lists\Controllers;
 
 use Core\BaseController;
-use Core\Request;
 
 class ListController extends BaseController
 {
