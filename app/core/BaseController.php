@@ -2,8 +2,6 @@
 
 namespace Core;
 
-use Core\Container;
-
 abstract class BaseController
 {
     protected $view;

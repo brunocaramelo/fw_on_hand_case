@@ -7,7 +7,6 @@ use Vendor\HttpClient\HttpResponseException;
 use App\Contacts\Repositories\ContactsRepository;
 use Core\RequestApi as Request;
 
-
 class ContactsController
 {
     private $container;
