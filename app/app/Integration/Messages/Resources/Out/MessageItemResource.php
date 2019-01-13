@@ -25,6 +25,5 @@ class MessageItemResource
                               ],
                 'pasta'=> $this->item['folder'],
             ];
-
     }
 }
