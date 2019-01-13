@@ -25,7 +25,7 @@ class MessageController extends BaseController
     
     public function editMessage(Request $request)
     {
-        $code = $request->getRouteParams()['code'];
+        $code = $request->etRouteParams('code');
         return $this->get('template')
             ->setup([ 'code'=> $code ], 'messages/edit', 'Editar Mensagem')
             ->setUseLayout(false)
@@ -34,7 +34,7 @@ class MessageController extends BaseController
 
     public function sendMessage(Request $request)
     {
-        $code = $request->getRouteParams()['code'];
+        $code = $request->getRouteParams('code');
         return $this->get('template')
             ->setup([ 'code'=> $code ], 'messages/send-message', 'Enviar Mensagem')
             ->setUseLayout(false)
@@ -43,7 +43,7 @@ class MessageController extends BaseController
 
     public function showResults(Request $request)
     {
-        $code = $request->getRouteParams()['code'];
+        $code = $request->getRouteParams('code');
         return $this->get('template')
             ->setup([ 'code'=> $code ], 'messages/show-result', 'Enviar Mensagem')
             ->setUseLayout(false)

@@ -73,7 +73,7 @@ class UserController extends BaseController
 
     public function edit(Request $request)
     {
-        $idUser = $request->getRouteParams()['id'];
+        $idUser = $request->getRouteParams('id');
         $messages = ['errors'=>$this->errors,
                     'success'=>$this->success,
                     'inputs'=>$this->inputs,

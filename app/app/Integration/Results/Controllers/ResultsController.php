@@ -20,7 +20,7 @@ class ResultsController
     public function showResults(RequestApi $request)
     {
         try {
-            $code = $request->getRouteParams()['code'];
+            $code = $request->getRouteParams('code');
            
             $responseApi = $this->messageService->getResultsByCode($code);
             return $this->response->json([ 'data' => $responseApi ]);

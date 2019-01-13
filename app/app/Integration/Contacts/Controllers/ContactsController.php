@@ -26,7 +26,7 @@ class ContactsController
     public function listContacts(Request $request)
     {
         try {
-            $code = $request->getRouteParams()['code'];
+            $code = $request->etRouteParams('code');
             $responseApi = $this->contactService->getAllContactsByList($code);
             return $this->response->json([ 'data' => $responseApi ]);
         } catch (HttpResponseException $error) {
@@ -37,7 +37,7 @@ class ContactsController
     public function getContactByCode(Request $request)
     {
         try {
-            $code = $request->getRouteParams()['code'];
+            $code = $request->getRouteParams('code');
            
             $responseApi = $this->contactService->getByCode($code);
             return $this->response->json([ 'data' => $responseApi ]);

@@ -46,7 +46,7 @@ class MessageController
     public function getMessageByCode(Request $request)
     {
         try {
-            $code = $request->getRouteParams()['code'];
+            $code = $request->etRouteParams('code');
            
             $responseApi = $this->messageService->getByCode($code);
             return $this->response->json([ 'data' => $responseApi ]);

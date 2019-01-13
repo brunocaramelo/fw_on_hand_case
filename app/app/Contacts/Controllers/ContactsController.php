@@ -9,7 +9,7 @@ class ContactsController extends BaseController
 {
     public function createContactsFromListId(Request $request)
     {
-        $listId = $request->getRouteParams()['id'];
+        $listId = $request->getRouteParams('id');
         return $this->get('template')
             ->setup([ 'codeList' => $listId ], 'contacts/new-contact', 'Criar de Contatos')
             ->setUseLayout(false)
@@ -18,7 +18,7 @@ class ContactsController extends BaseController
 
     public function getContactsFromListId(Request $request)
     {
-        $listId = $request->getRouteParams()['id'];
+        $listId = $request->getRouteParams('id');
         return $this->get('template')
             ->setup([ 'codeList' => $listId ], 'contacts/list-contacts', 'Listas de Contatos')
             ->setUseLayout(false)
@@ -26,7 +26,7 @@ class ContactsController extends BaseController
     }
     public function getContactByCode(Request $request)
     {
-        $code = $request->getRouteParams()['code'];
+        $code = $request->getRouteParams('code');
         return $this->get('template')
             ->setup([ 'code' => $code ], 'contacts/edit-contact', 'Editar Contato')
             ->setUseLayout(false)
