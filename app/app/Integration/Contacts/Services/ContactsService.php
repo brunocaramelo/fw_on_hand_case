@@ -2,12 +2,10 @@
 
 namespace App\Integration\Contacts\Services;
 
-use Core\RequestApi;
 use Vendor\ApiCommunicator\Client\Communicator;
 use App\Integration\Contacts\Resources\In\ContactsListResource;
 use App\Integration\Contacts\Resources\Out\ContactsItemResource as ContactItemExternal;
 use App\Integration\Contacts\Resources\Out\ContactsItemCompleteResource as ContactItemCompleteExternal;
-use App\Integration\Contacts\Resources\In\ContactsItemResource as ContactItemInternal;
 use Core\AuthApi as Auth;
 
 use App\Contacts\Repositories\ContactsRepository;
