@@ -10,7 +10,7 @@ class RequestApi
     
     public function getHeaders()
     {
-        $headers = array();
+        $headers = [];
         foreach ($_SERVER as $key => $value) {
             if (substr($key, 0, 5) <> 'HTTP_') {
                 continue;
