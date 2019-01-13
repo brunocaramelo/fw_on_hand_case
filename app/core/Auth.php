@@ -2,8 +2,6 @@
 
 namespace Core;
 
-use Core\Session;
-
 class Auth
 {
     private $id = null;
