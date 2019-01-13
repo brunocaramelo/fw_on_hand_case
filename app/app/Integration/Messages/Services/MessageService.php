@@ -2,11 +2,8 @@
 
 namespace App\Integration\Messages\Services;
 
-use Core\RequestApi;
 use Vendor\ApiCommunicator\Client\Communicator;
-use App\Integration\Contacts\Resources\In\ContactsListResource;
 use App\Integration\Messages\Resources\Out\MessageItemResource as MessageItemExternal;
-use App\Integration\Messages\Resources\In\MessageItemResource as MessageItemInternal;
 use Core\AuthApi as Auth;
 
 use App\Messages\Repositories\MessageRepository;
