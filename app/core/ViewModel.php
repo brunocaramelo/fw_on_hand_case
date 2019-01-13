@@ -78,6 +78,4 @@ class ViewModel
         }
         return require __DIR__."/../resources/{$baseName}.phtml";
     }
-
 }
-
