@@ -78,5 +78,5 @@ class ContactsRepository
         $query->bindParam(':note', $params['note']);
        
         return $query->execute();
-    }  
+    }
 }
