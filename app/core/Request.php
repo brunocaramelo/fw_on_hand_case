@@ -51,8 +51,11 @@ class Request
         $this->routeParams = $routeParams;
     }
 
-    public function getRouteParams()
+    public function getRouteParams(string $key = null)
     {
+        if ($key) {
+            return $this->routeParams[$key];
+        }
         return $this->routeParams;
     }
 }
