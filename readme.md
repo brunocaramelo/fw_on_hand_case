@@ -135,9 +135,10 @@ Features:
 - Contacts
 - Message
 
-- The application is separated by contexts where we have the separation of the same such as:
--> Controllers (HTTP reception and response layer and responsible for forwarding to the correct service (Business Object))
--> Service (Layer responsible for applying the business rule)
--> Validator (Layer responsible for validating the INPUT received by the application and instantiating a specific Exception when necessary)
--> Repository (Layer where queries are performed in the data layer (Database in this case))
--> Resource (Layer where queries are performed in the data layer (Database in this case))
+
+The application is separated by contexts where we have the separation of the same such as:
+    -> Controllers (HTTP reception and response layer and responsible for forwarding to the correct service (Business Object))
+    -> Service (Layer responsible for applying the business rule)
+    -> Validator (Layer responsible for validating the INPUT received by the application and instantiating a specific Exception when necessary)
+    -> Repository (Layer where queries are performed in the data layer (Database in this case))
+    -> Resource (Layer where queries are performed in the data layer (Database in this case))
