@@ -1,145 +1,143 @@
 
-EXECUTAR ANTES DA APLICAÇÃO CLIENTE
+RUN BEFORE THE CLIENT APPLICATION
 
-1- Ir a raiz do projeto e subir a aplicação com o uso do comando:
+1- Go to the root of the project and upload the application using the command:
 
     sudo docker-compose up -d
 
-
-2 - Subir a base de dados com o comando:
+2 - Upload the database using the command:
 
     sudo docker exec -t php-on-hand php /var/www/html/deploy/migrate.php
 
-Rotas WEB: 
+WEB Routes:
 
     GET - /login (Login)
-    GET - /users (Listar Usuarios)
-    GET - /user/create (Form Novo Usuarios)
-    POST - /user/store (Envio Novo Usuarios)
-    GET - /user/{id}/edit (Form Editar Usuarios)
-    POST - /user/{id}/update (Envio Edicao Usuarios)
-    GET - v1/products/{id} (Detalhar Produtos)
-   
-Rotas WEB: 
+    GET - /users (List Users)
+    GET - /user/create (New User Form)
+    POST - /user/store (Send New Users)
+    GET - /user/{id}/edit (Edit User Form)
+    POST - /user/{id}/update (Send User Edit Form)
+    GET - v1/products/{id} (Detail Products)
 
-    ENVIAR HEADER 
-        -Authorization: Bearer $2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi
+WEB Routes:
 
-    (GET)) /lists (Listagem das listas)
-    (GET)) /list/{code}/contacts (Listagem de contatos de uma lista)
-    (POST)) /list/create (criação de lista)
-        - params
-            {"list":{"name":"Nome desta lista"}}
-    
-    (POST)) /message/create (criação de mensagem)
-        - params
-            {"message":{"subject":"Assunto da mensagem","sender_name":"remetente da mensagem","sender_email":"email@message.com","folder":"API","body":"<p>Digite sua mensagem.</p><p>Que <em>cuidamos</em> do resto</p><p>Mensagem <u>customizada</u> em <strong>HTML</strong></p>"}}
-    
-    (POST)) /message/send (envio de mensagem)
-        - params
-            {"send":{"code":"33","list":["12"]}}
-    (GET)) /message/{code}/show-results (relatorio de envio da mensagem)
-    
-    
-Observações:
-    O parametros de configuração são passado ao container a partir do environment: na linha 25 do docker-composer.yml
+SEND HEADER
+-Authorization: Bearer $2y$10$Z7f8NQGrbqq/3F8RuO5r7utL/yAzzlz4uyv8MGin719in/DJwrSpi
 
-Primeiros Passos:
+    (GET)) /lists (List of lists)
+    (GET)) /list/{code}/contacts (List of contacts in a list)
+    (POST)) /list/create (list creation)
+    - params
+    {"list":{"name":"Name of this list"}}
 
-    1 - Acessar: http://localhost:4001/login
-    2 - O usuário master tem como acesso:
-        Login: admin@admin.com
-        Senha: admin
+    (POST)) /message/create (message creation)
+    - params
+    {"message":{"subject":"Message subject","sender_name":"message sender","sender_email":"email@message.com","folder":"API","body":"<p>Enter your message.</p><p>We'll <em>take care</em> of the rest</p><p><u>Customized</u> message in <strong>HTML</strong></p>"}}
 
+    (POST)) /message/send (sending message)
+    - params
+    {"send":{"code":"33","list":["12"]}}
+    (GET)) /message/{code}/show-results (report of message sending)
 
-Oque a aplicação Faz:
-    Aplicação Web :
-        - Login
-        - ACL 
-            - onde temos verificação se o usuario esta logado (sessão)
-            - credenciais vinculadas ao perfil (role x permission)
-            - proteção de rotas
-            - verificação de credencias para que sejam exibidas ou não opções
-        - Criação de Usuários
-        - Edição de usuários
+Notes:
+The configuration parameters are passed to the container from the environment: on line 25 of docker-composer.yml
 
-    
-    Aplicação API(gatway):
-        - Verificação do Header: Authorization Bearer onde o usuário e identificado e o ACL e aplicado
-        - Baseada em application/json
-        - ACL 
-            - onde temos verificação se o usuario esta logado (token)
-            - credenciais vinculadas ao perfil (role x permission)
-            - proteção de rotas
+First Steps:
 
-Oque falta:
+1 - Access: http://localhost:4001/login
+2 - The master user has the following access:
+Login: admin@admin.com
+Password: admin
 
-    API:
+What the application does:
+Web application:
+- Login
+- ACL
+- where we check if the user is logged in (session)
+- credentials linked to the profile (role x permission)
+- route protection
+- verification of credentials so that options are displayed or not
+- User Creation
+- User Editing
 
-    - Comunicação com A API externa
-    - Adapters de comunicação entre o gateway interno para a API externa sendo eles:
-        - Cadastrar listas e contatos;
-        - Cadastrar mensagem;
-        - Enviar mensagem;
-        - Exibir resultados do envio.
-    Web:
+API Application (Gateway):
+- Verification of the Header: Authorization Bearer where the user is identified and the ACL is applied
+- Based on application/json
+- ACL
+- where we check if the user is logged in (token)
+- credentials linked to the profile (role x permission)
+- route protection
 
-        - Criação de rotas para consumo do Gateway mencionado acima
-            - Cadastrar listas e contatos;
-            - Cadastrar mensagem;
-            - Enviar mensagem;
-            - Exibir resultados do envio.
-        - Uso de Datatables para interação com as respostas da API que sera traduzida pelo gateway
+What is missing:
 
-Caracteristicas:
+API:
 
-    - A aplicação contem dois cenarios:
-        - web
-        - api
+- Communication with the external API
+- Communication adapters between the internal gateway and the external API, which are:
+- Register lists and contacts;
+- Register message;
+- Send message;
+- Display sending results.
+Web:
 
-    - Uso de Injeção de depencias:
+- Creation of routes for consumption of the Gateway mentioned above
+- Register lists and contacts;
+- Register message;
+- Send message;
+- View sending results.
+- Use of Datatables to interact with the API responses that will be translated by the gateway
 
-        - web:
+Features:
 
-            - Request (Camada onde ocorre recuperação de POST, GET, Parametros de rota)
+- The application contains two scenarios:
 
-            - ViewModel (onde a mesma apenas conhece dados enviados a ela, onde existe um isolamente entre as camadas)
+- web
 
-            - Session (Camada para iteção com a sessão para autenticação e flash messages)
+- api
 
-            - Auth (Objeto que contem o contexto de um usuario autenticado com o uso de sessao)
+- Use of Dependency Injection:
 
-            - Redirect (Camada onde sao definidos os redirecionamentos e o uso de flash messages quando necessario)
+- web:
 
-            - Connection (Camada onde é enviada uma instancia do PDO pronta para uso)
+- Request (Layer where POST, GET, and Route Parameters are retrieved)
 
-            - container (Camada onde são armazedas as dependencias e enviadas ao Controller e etc com o uso de apelidos como $this->get('session') )
+- ViewModel (where it only knows the data sent to it, where there is isolation between the layers)
 
-        - api
+- Session (Layer for iteration with the session for authentication and flash messages)
 
-            - Request (Camada onde ocorre recuperação BODY (JSON ou TEXT/PLAIN) e cabeçalhos de autorização (Authorization Bearer) )
+- Auth (Object that contains the context of an authenticated user using a session)
 
-            - Resource (Camada responsavel pelo trafego e estrategia de DEPARA entre o gateway e a API )
-            
-            - Response (Camada responsavel pelo retorno do Gateway (JSON ou TEXT/PLAIN) e HTTP CODE )
+- Redirect (Layer where redirections and the use of flash messages are defined when necessary)
 
-            - Connection (Camada onde é enviada uma instancia do PDO pronta para uso)
+- Connection (Layer where a ready-to-use PDO instance is sent)
 
-            - Auth ( Camada responsavel pela verificação de usuario a partir do token enviado no header e usado para o uso do ACL )
-            - container (Camada onde são armazedas as dependencias e enviadas ao Controller e etc com o uso de apelidos como $this->get('session') )
+- container (Layer where dependencies are stored and sent to the Controller, etc. with the use of aliases such as $this->get('session') )
 
-    - Router (Camada onde o ACL é aplicado antes da chamada do controller (simulando um middleware) e responsavel por               chamar o controller correto )
+- api
 
+- Request (Layer where BODY (JSON or TEXT/PLAIN) and authorization headers (Authorization Bearer) are retrieved)
 
-    - Uso de Dominios:
-            - User
-            - Lists
-            - Contacts
-            - Message
-        - Aplicação é separada por contextos onde temos a separação dos mesmos tais como:
-                -> Controllers (Camada de recepçao e resposta HTTP e responsavel por encaminhar ao service (Business Object) correto )
-                -> Service (Camada responsavel pela aplicação da regra de negocio )
-                -> Validator (Camada responsavel pela validação do INPUT recebido pela aplição e instanciando uma           Excessao expecifica quando necessario)
-                -> Repository ( Camada onde sao realizadas as consultas na camada de dados (Banco de dados no caso))
-                -> Resource ( Camada onde sao realizadas as consultas na camada de dados (Banco de dados no caso))
+- Resource (Layer responsible for traffic and DEPARA strategy between the gateway and the API)
 
+- Response (Layer responsible for the Gateway's return (JSON or TEXT/PLAIN) and HTTP CODE)
+
+- Connection (Layer where a ready-to-use PDO instance is sent)
+
+- Auth (Layer responsible for user verification from the token sent in the header and used for ACL use)
+
+- container (Layer where dependencies are stored and sent to the Controller, etc., using aliases such as $this->get('session') )
+
+- Router (Layer where the ACL is applied before calling the controller (simulating a middleware) and responsible for calling the correct controller)
+
+- Use of Domains:
+- User
+- Lists
+- Contacts
+- Message
+
+- The application is separated by contexts where we have the separation of the same such as:
+-> Controllers (HTTP reception and response layer and responsible for forwarding to the correct service (Business Object))
+-> Service (Layer responsible for applying the business rule)
+-> Validator (Layer responsible for validating the INPUT received by the application and instantiating a specific Exception when necessary)
+-> Repository (Layer where queries are performed in the data layer (Database in this case))
+-> Resource (Layer where queries are performed in the data layer (Database in this case))
