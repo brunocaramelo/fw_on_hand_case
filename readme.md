@@ -91,52 +91,52 @@ Features:
 
 - The application contains two scenarios:
 
-- web
+    - web
 
-- api
+    - api
 
-- Use of Dependency Injection:
+    - Use of Dependency Injection:
 
-- web:
+    - web:
 
-- Request (Layer where POST, GET, and Route Parameters are retrieved)
+    - Request (Layer where POST, GET, and Route Parameters are retrieved)
 
-- ViewModel (where it only knows the data sent to it, where there is isolation between the layers)
+    - ViewModel (where it only knows the data sent to it, where there is isolation between the layers)
 
-- Session (Layer for iteration with the session for authentication and flash messages)
+    - Session (Layer for iteration with the session for authentication and flash messages)
 
-- Auth (Object that contains the context of an authenticated user using a session)
+    - Auth (Object that contains the context of an authenticated user using a session)
 
-- Redirect (Layer where redirections and the use of flash messages are defined when necessary)
+    - Redirect (Layer where redirections and the use of flash messages are defined when necessary)
 
-- Connection (Layer where a ready-to-use PDO instance is sent)
+    - Connection (Layer where a ready-to-use PDO instance is sent)
 
-- container (Layer where dependencies are stored and sent to the Controller, etc. with the use of aliases such as $this->get('session') )
+    - container (Layer where dependencies are stored and sent to the Controller, etc. with the use of aliases such as $this->get('session') )
 
-- api
+    - api
 
-- Request (Layer where BODY (JSON or TEXT/PLAIN) and authorization headers (Authorization Bearer) are retrieved)
+    - Request (Layer where BODY (JSON or TEXT/PLAIN) and authorization headers (Authorization Bearer) are retrieved)
 
-- Resource (Layer responsible for traffic and DEPARA strategy between the gateway and the API)
+    - Resource (Layer responsible for traffic and DEPARA strategy between the gateway and the API)
 
-- Response (Layer responsible for the Gateway's return (JSON or TEXT/PLAIN) and HTTP CODE)
+    - Response (Layer responsible for the Gateway's return (JSON or TEXT/PLAIN) and HTTP CODE)
 
-- Connection (Layer where a ready-to-use PDO instance is sent)
+    - Connection (Layer where a ready-to-use PDO instance is sent)
 
-- Auth (Layer responsible for user verification from the token sent in the header and used for ACL use)
+    - Auth (Layer responsible for user verification from the token sent in the header and used for ACL use)
 
-- container (Layer where dependencies are stored and sent to the Controller, etc., using aliases such as $this->get('session') )
+    - container (Layer where dependencies are stored and sent to the Controller, etc., using aliases such as $this->get('session') )
 
-- Router (Layer where the ACL is applied before calling the controller (simulating a middleware) and responsible for calling the correct controller)
+    - Router (Layer where the ACL is applied before calling the controller (simulating a middleware) and responsible for calling the correct controller)
 
-- Use of Domains:
-- User
-- Lists
-- Contacts
-- Message
+    - Use of Domains:
+    - User
+    - Lists
+    - Contacts
+    - Message
 
 
-The application is separated by contexts where we have the separation of the same such as:
+    The application is separated by contexts where we have the separation of the same such as:
     -> Controllers (HTTP reception and response layer and responsible for forwarding to the correct service (Business Object))
     -> Service (Layer responsible for applying the business rule)
     -> Validator (Layer responsible for validating the INPUT received by the application and instantiating a specific Exception when necessary)
